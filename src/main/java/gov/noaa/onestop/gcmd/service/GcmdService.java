@@ -15,7 +15,7 @@ public class GcmdService {
 
         for (File file : files) {
             if (file.isFile()) {
-                results.add(file.getName());
+                results.add(file.getAbsolutePath());
             }
         }
         return results;

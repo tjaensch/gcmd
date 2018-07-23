@@ -9,10 +9,10 @@ import java.util.List;
 
 public class GcmdControllerTest {
 
+    GcmdController gcmdController = new GcmdController();
+
     @Test
     public void test_gcmdPage() {
-        GcmdController gcmdController = new GcmdController();
-
         List<String> fileList = gcmdController.gcmdPage();
         assertFalse(fileList.isEmpty());
     }

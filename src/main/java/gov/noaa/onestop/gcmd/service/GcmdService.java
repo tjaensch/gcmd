@@ -8,7 +8,7 @@ import java.io.File;
 public class GcmdService {
 
 
-    public static List<String> findXmlFiles() {
+    public static List<String> find_xml_files() {
         List<String> results = new ArrayList<String>();
 
         File[] files = new File("/Users/thomasjaensch/IdeaProjects/gcmd/src/main/resources/static/collection_test_files").listFiles();

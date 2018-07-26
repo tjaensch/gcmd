@@ -17,7 +17,7 @@ public class GcmdServiceTest {
 
     @Test
     public void test_findXmlFiles() {
-        List<String> results = gcmdService.findXmlFiles();
+        List<String> results = gcmdService.find_xml_files();
         assertThat(results, hasSize(5));
 
     }

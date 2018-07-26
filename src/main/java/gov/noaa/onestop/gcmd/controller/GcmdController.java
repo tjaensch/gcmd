@@ -2,10 +2,12 @@ package gov.noaa.onestop.gcmd.controller;
 
 import gov.noaa.onestop.gcmd.service.GcmdService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.io.*;
-import java.net.URL;
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -13,29 +15,31 @@ public class GcmdController {
 
     @Autowired
     GcmdService service;
+    private String xmlUrl;
 
     @RequestMapping("/gcmd")
     public List<String> gcmdPage(){
-        return service.findXmlFiles();
+        return service.find_xml_files();
     }
 
-    @RequestMapping("/download_xml_file")
-    public void download_xml_file() throws IOException {
-        URL url = new URL("https://data.nodc.noaa.gov/nodc/archive/metadata/approved/iso/GHRSST-ABOM-L4HRfnd-AUS-RAMSSA_09km.xml");
-        InputStream io = url.openStream();
-        BufferedReader br = new BufferedReader(new InputStreamReader(io));
-        FileOutputStream fio = new FileOutputStream("file.xml");
-        PrintWriter pr = new PrintWriter(fio, true);
-        String data = "";
-        while ((data = br.readLine()) != null) {
-
-            pr.println(data);
-        }
-    }
-
+    // Format http://localhost:8080/source_xml?url=https://data.nodc.noaa.gov/nodc/archive/metadata/approved/iso/GHRSST-ABOM-L4HRfnd-AUS-RAMSSA_09km.xml
     @RequestMapping(value="source_xml", method = RequestMethod.GET)
-    public @ResponseBody String get_xml_url(@RequestParam("url") String urlValue){
-        return urlValue;
+    public void get_url_value(@RequestParam("url") String urlValue) throws IOException {
+
+        xmlUrl = urlValue;
+
+        /* InputStream in = new URL( urlValue ).openStream();
+        try {
+            IOUtils.toString(in, "UTF-8");;
+            return xmlString;
+        } finally {
+            IOUtils.closeQuietly(in);
+        } */
+    }
+
+    @RequestMapping("/blah")
+    public String blahPage(){
+        return xmlUrl;
     }
 
 }

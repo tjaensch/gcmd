@@ -51,6 +51,7 @@ public class GcmdService {
 
         try {
             factory = DocumentBuilderFactory.newInstance();
+            factory.setNamespaceAware(true);
             builder = factory.newDocumentBuilder();
         } catch (ParserConfigurationException e) {
             e.printStackTrace();
@@ -65,7 +66,7 @@ public class GcmdService {
         }
 
         XPath xPath = XPathFactory.newInstance().newXPath();
-        String expression = "//*[local-name()='title']";
+        String expression = "//*[local-name()='MD_Keywords'][*[local-name()='type']/*[local-name()='MD_KeywordTypeCode'][@*[local-name() = 'codeListValue' and .='theme']]]";
         NodeList nodeList = (NodeList) xPath.compile(expression).evaluate(xmlDocument, XPathConstants.NODESET);
 
         DOMSource source = new DOMSource();

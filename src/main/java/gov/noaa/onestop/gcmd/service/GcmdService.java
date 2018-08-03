@@ -31,7 +31,8 @@ public class GcmdService {
     public static List<String> find_xml_files() {
         List<String> results = new ArrayList<String>();
 
-        File[] files = new File("/Users/thomasjaensch/IdeaProjects/gcmd/src/main/resources/static/collection_test_files").listFiles();
+        File[] files = new File("/Users/thomasjaensch/IdeaProjects/gcmd/src/main/resources/static" +
+                "/collection_test_files").listFiles();
 
         for (File file : files) {
             if (file.isFile()) {
@@ -42,7 +43,8 @@ public class GcmdService {
     }
 
     // THEME KEYWORDS
-    public String get_theme_keywords(String urlValue) throws IOException, XPathExpressionException, ParserConfigurationException, SAXException, TransformerException {
+    public String get_theme_keywords(String urlValue) throws IOException, XPathExpressionException,
+            ParserConfigurationException, SAXException, TransformerException {
         InputStream input = new URL(urlValue).openStream();
 
         DocumentBuilderFactory factory = null;
@@ -66,7 +68,11 @@ public class GcmdService {
         }
 
         XPath xPath = XPathFactory.newInstance().newXPath();
-        String expression = "//*[local-name()='MD_Keywords'][*[local-name()='type']/*[local-name()='MD_KeywordTypeCode'][@*[local-name() = 'codeListValue' and .='theme']]][*[local-name()='keyword'][../*[local-name()='thesaurusName']/*[local-name()='CI_Citation']/*[local-name()='title']/*[contains(text(), 'GCMD')]]/*]";
+        String expression = "//*[local-name()='MD_DataIdentification']/*[local-name()" +
+                "='descriptiveKeywords']/*[local-name()='MD_Keywords'][*[local-name()='type']/*[local-name()" +
+                "='MD_KeywordTypeCode'][@*[local-name() = 'codeListValue' and .='theme']]][*[local-name()" +
+                "='keyword'][../*[local-name()='thesaurusName']/*[local-name()='CI_Citation']/*[local-name()" +
+                "='title']/*[contains(text(), 'GCMD')]]/*]";
         NodeList nodeList = (NodeList) xPath.compile(expression).evaluate(xmlDocument, XPathConstants.NODESET);
 
         DOMSource source = new DOMSource();

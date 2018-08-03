@@ -41,8 +41,10 @@ public class GcmdControllerTest {
     }
 
     public void test_get_url_value() throws Exception {
-        String urlValue = "https://data.nodc.noaa.gov/nodc/archive/metadata/approved/iso/GHRSST-ABOM-L4HRfnd-AUS-RAMSSA_09km.xml";
-        mockMvc.perform(get("/source_xml?url=https://data.nodc.noaa.gov/nodc/archive/metadata/approved/iso/GHRSST-ABOM-L4HRfnd-AUS-RAMSSA_09km.xml")
+        String urlValue = "https://data.nodc.noaa" +
+                ".gov/nodc/archive/metadata/approved/iso/GHRSST-ABOM-L4HRfnd-AUS-RAMSSA_09km.xml";
+        mockMvc.perform(get("/source_xml?url=https://data.nodc.noaa" +
+                ".gov/nodc/archive/metadata/approved/iso/GHRSST-ABOM-L4HRfnd-AUS-RAMSSA_09km.xml")
         ).andDo(print())
                 .andExpect(status().isOk());
     }

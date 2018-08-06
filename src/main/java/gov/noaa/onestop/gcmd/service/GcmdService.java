@@ -68,9 +68,9 @@ public class GcmdService {
         XPath xPath = XPathFactory.newInstance().newXPath();
         String expression = "//*[local-name()='MD_DataIdentification']/*[local-name()"
                 + "='descriptiveKeywords']/*[local-name()='MD_Keywords'][*[local-name()='type']/*[local-name()"
-                + "='MD_KeywordTypeCode'][@*[local-name() = 'codeListValue' and .='theme']]][*[local-name()"
+                + "='MD_KeywordTypeCode'][@*[local-name() = 'codeListValue' and .='theme']]]/*[local-name()"
                 + "='keyword'][../*[local-name()='thesaurusName']/*[local-name()='CI_Citation']/*[local-name()"
-                + "='title']/*[contains(text(), 'GCMD')]]/*]";
+                + "='title']/*[contains(text(), 'GCMD')]]/*";
         NodeList nodeList = (NodeList) xPath.compile(expression).evaluate(xmlDocument, XPathConstants.NODESET);
 
         DOMSource source = new DOMSource();

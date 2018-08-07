@@ -73,23 +73,10 @@ public class GcmdService {
 
         List<String> themeKeywords = IntStream.range(0, nodeList.getLength())
                 .mapToObj(nodeList::item)
-                .map(n -> n.getTextContent())
+                .map(n -> n.getTextContent().replace("\n", "").trim().replaceAll(" +", " "))
                 .collect(Collectors.toList());
 
         return themeKeywords;
-
-        /* DOMSource source = new DOMSource();
-        StringWriter writer = new StringWriter();
-        StreamResult result = new StreamResult(writer);
-        Transformer transformer = TransformerFactory.newInstance().newTransformer();
-        transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
-
-        for (int i = 0; i < nodeList.getLength(); ++i) {
-            source.setNode(nodeList.item(i));
-            transformer.transform(source, result);
-        }
-
-        return writer.toString(); */
     }
 
 }

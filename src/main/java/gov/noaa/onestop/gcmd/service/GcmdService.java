@@ -9,9 +9,6 @@ import org.xml.sax.SAXException;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.*;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
@@ -19,10 +16,11 @@ import javax.xml.xpath.XPathFactory;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.StringWriter;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 
 @Component
@@ -42,8 +40,8 @@ public class GcmdService {
     }
 
     // THEME KEYWORDS
-    public String get_theme_keywords(String urlValue) throws IOException, XPathExpressionException, ParserConfigurationException, SAXException, TransformerException {
-        InputStream input = new URL(urlValue).openStream();
+    public List<String> get_theme_keywords(URL urlValue) throws IOException, XPathExpressionException {
+        InputStream input = urlValue.openStream();
 
         DocumentBuilderFactory factory = null;
         DocumentBuilder builder = null;
@@ -73,7 +71,14 @@ public class GcmdService {
                 + "='title']/*[contains(text(), 'GCMD')]]/*";
         NodeList nodeList = (NodeList) xPath.compile(expression).evaluate(xmlDocument, XPathConstants.NODESET);
 
-        DOMSource source = new DOMSource();
+        List<String> themeKeywords = IntStream.range(0, nodeList.getLength())
+                .mapToObj(nodeList::item)
+                .map(n -> n.getTextContent())
+                .collect(Collectors.toList());
+
+        return themeKeywords;
+
+        /* DOMSource source = new DOMSource();
         StringWriter writer = new StringWriter();
         StreamResult result = new StreamResult(writer);
         Transformer transformer = TransformerFactory.newInstance().newTransformer();
@@ -84,7 +89,7 @@ public class GcmdService {
             transformer.transform(source, result);
         }
 
-        return writer.toString();
+        return writer.toString(); */
     }
 
 }

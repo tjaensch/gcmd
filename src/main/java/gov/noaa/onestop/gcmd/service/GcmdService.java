@@ -13,11 +13,9 @@ import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -26,26 +24,13 @@ import java.util.stream.IntStream;
 @Component
 public class GcmdService {
 
-    public static List<String> find_xml_files() {
-        List<String> results = new ArrayList<String>();
+    public Document xmlDocument;
 
-        File[] files = new File("/Users/thomasjaensch/IdeaProjects/gcmd/src/main/resources/static" + "/collection_test_files").listFiles();
-
-        for (File file : files) {
-            if (file.isFile()) {
-                results.add(file.getAbsolutePath());
-            }
-        }
-        return results;
-    }
-
-    // THEME KEYWORDS
-    public List<String> get_theme_keywords(URL urlValue) throws IOException, XPathExpressionException {
-        InputStream input = urlValue.openStream();
+    public Document get_xml_document(URL urlvalue) throws IOException, SAXException {
+        InputStream input = urlvalue.openStream();
 
         DocumentBuilderFactory factory = null;
         DocumentBuilder builder = null;
-        Document xmlDocument = null;
 
         try {
             factory = DocumentBuilderFactory.newInstance();
@@ -54,15 +39,12 @@ public class GcmdService {
         } catch (ParserConfigurationException e) {
             e.printStackTrace();
         }
+        xmlDocument = builder.parse(new InputSource(input));
+        return xmlDocument;
+    }
 
-        try {
-            xmlDocument = builder.parse(new InputSource(input));
-        } catch (SAXException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
+    // THEME KEYWORDS
+    public List<String> get_theme_keywords(Document xmlDocument) throws IOException, XPathExpressionException {
         XPath xPath = XPathFactory.newInstance().newXPath();
         String expression = "//*[local-name()='MD_DataIdentification']/*[local-name()"
                 + "='descriptiveKeywords']/*[local-name()='MD_Keywords'][*[local-name()='type']/*[local-name()"
@@ -80,5 +62,3 @@ public class GcmdService {
     }
 
 }
-
-

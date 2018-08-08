@@ -22,11 +22,6 @@ public class GcmdController {
     GcmdService service;
     public URL xmlUrl;
 
-    @RequestMapping("/gcmd")
-    public List<String> gcmdPage() {
-        return service.find_xml_files();
-    }
-
     // Format http://localhost:8080/source_xml?url=https://data.nodc.noaa
     // .gov/nodc/archive/metadata/approved/iso/GHRSST-ABOM-L4HRfnd-AUS-RAMSSA_09km.xml
     @RequestMapping(value = "source_xml", method = RequestMethod.GET)
@@ -35,10 +30,11 @@ public class GcmdController {
         return xmlUrl;
     }
 
-    @RequestMapping("/gcmd_keywords_results")
-    public List<String> blahPage() throws IOException, XPathExpressionException, ParserConfigurationException,
+    @RequestMapping("/show_theme_keywords")
+    public List<String> show_theme_keywords() throws IOException, XPathExpressionException, ParserConfigurationException,
             SAXException, TransformerException {
-        return service.get_theme_keywords(xmlUrl);
+        service.get_xml_document(xmlUrl);
+        return service.get_theme_keywords(service.get_xml_document(xmlUrl));
     }
 
 }

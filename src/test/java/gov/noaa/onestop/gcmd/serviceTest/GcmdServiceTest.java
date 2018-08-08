@@ -3,6 +3,7 @@ package gov.noaa.onestop.gcmd.serviceTest;
 import gov.noaa.onestop.gcmd.service.GcmdService;
 import org.junit.Before;
 import org.junit.Test;
+import org.xml.sax.SAXException;
 
 import javax.xml.xpath.XPathExpressionException;
 import java.io.File;
@@ -30,14 +31,8 @@ public class GcmdServiceTest {
     }
 
     @Test
-    public void test_findXmlFiles() {
-        List<String> results = gcmdService.find_xml_files();
-        assertThat(results, hasSize(5));
-    }
-
-    @Test
-    public void test_get_theme_keywords() throws IOException, XPathExpressionException {
-        List<String> results = gcmdService.get_theme_keywords(testfile);
+    public void test_get_theme_keywords() throws IOException, XPathExpressionException, SAXException {
+        List<String> results = gcmdService.get_theme_keywords(gcmdService.get_xml_document(testfile));
         assertThat(results, hasSize(2));
         assertThat(results, containsInAnyOrder("EARTH SCIENCE > OCEANS > OCEAN TEMPERATURE > SEA SURFACE TEMPERATURE", "Earth Science > Oceans > Ocean Temperature > Sea Surface Temperature > Foundation Sea Surface Temperature"));
         assertThat(results, not(hasItem("BLAH SCIENCE > OCEANS > OCEAN TEMPERATURE > SEA SURFACE TEMPERATURE")));

@@ -37,4 +37,11 @@ public class GcmdController {
         return service.get_theme_keywords(service.get_xml_document(xmlUrl));
     }
 
+    @RequestMapping("/show_datacenter_keywords")
+    public List<String> show_datacenter_keywords() throws IOException, XPathExpressionException, ParserConfigurationException,
+            SAXException, TransformerException {
+        service.get_xml_document(xmlUrl);
+        return service.get_datacenter_keywords(service.get_xml_document(xmlUrl));
+    }
+
 }

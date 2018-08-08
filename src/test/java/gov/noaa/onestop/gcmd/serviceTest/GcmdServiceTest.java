@@ -38,5 +38,13 @@ public class GcmdServiceTest {
         assertThat(results, not(hasItem("BLAH SCIENCE > OCEANS > OCEAN TEMPERATURE > SEA SURFACE TEMPERATURE")));
     }
 
+    @Test
+    public void test_get_datacenter_keywords() throws IOException, XPathExpressionException, SAXException {
+        List<String> results = gcmdService.get_datacenter_keywords(gcmdService.get_xml_document(testfile));
+        assertThat(results, hasSize(3));
+        assertThat(results, containsInAnyOrder("DOC/NOAA/NESDIS/NODC", "DOC/NOAA/NESDIS/NCEI > National Centers for Environmental Information, NESDIS, NOAA, U.S. Department of Commerce", "NASA/JPL/PODAAC > Physical Oceanography Distributed Active Archive Center, Jet Propulsion Laboratory, NASA"));
+        assertThat(results, not(hasItem("BLAH > DOC/NOAA/NESDIS/NODC")));
+    }
+
 
 }

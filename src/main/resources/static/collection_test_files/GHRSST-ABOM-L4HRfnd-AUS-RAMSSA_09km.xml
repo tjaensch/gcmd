@@ -838,7 +838,7 @@
                     <gmd:type>
                         <gmd:MD_KeywordTypeCode
                                 codeList="https://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#MD_KeywordTypeCode"
-                                codeListValue="dataCenter">dataCenter
+                                codeListValue="dataCentre">dataCenter
                         </gmd:MD_KeywordTypeCode>
                     </gmd:type>
                     <gmd:thesaurusName>

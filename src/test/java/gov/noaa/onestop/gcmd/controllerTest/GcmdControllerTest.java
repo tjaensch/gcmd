@@ -5,6 +5,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
+import org.xml.sax.SAXException;
+
+import java.io.IOException;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -12,6 +15,9 @@ import org.springframework.test.context.web.WebAppConfiguration;
 public class GcmdControllerTest {
 
     GcmdController gcmdController = new GcmdController();
+
+    public GcmdControllerTest() throws IOException, SAXException {
+    }
 
     @Test
     public void test_get_url_value() {

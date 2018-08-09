@@ -6,6 +6,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -72,7 +73,18 @@ public class GcmdService {
         ArrayList<String> modelThemeKeywordsList = new ArrayList<String>();
         String[] row;
         while ((row = data.readNext()) != null) {
-            modelThemeKeywordsList.add(row[0] + " > " + row[1] + " > " + row[2] + " > " + row[3] + " > " + row[4]);
+            String keyword = row[0];
+            for(int i = 1; i < 7; i++) {
+                try {
+                    if (!StringUtils.isBlank(row[i])) {
+                        keyword = keyword + " > " + row[i];
+                    }
+                }
+                catch (IndexOutOfBoundsException e) {
+                    continue;
+                }
+            }
+            modelThemeKeywordsList.add(keyword.toUpperCase());
         }
         return modelThemeKeywordsList;
     }

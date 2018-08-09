@@ -46,5 +46,13 @@ public class GcmdServiceTest {
         assertThat(results, not(hasItem("BLAH > DOC/NOAA/NESDIS/NODC")));
     }
 
+    @Test
+    public void test_get_place_keywords() throws IOException, XPathExpressionException, SAXException {
+        List<String> results = gcmdService.get_place_keywords(gcmdService.get_xml_document(testfile));
+        assertThat(results, hasSize(9));
+        assertThat(results, containsInAnyOrder("Oceania", "OCEAN > INDIAN OCEAN", "OCEAN > INDIAN OCEAN > ARABIAN SEA", "OCEAN > INDIAN OCEAN > BAY OF BENGAL", "OCEAN > PACIFIC OCEAN > NORTH PACIFIC OCEAN", "OCEAN > PACIFIC OCEAN > SOUTH PACIFIC OCEAN", "OCEAN > PACIFIC OCEAN > WESTERN PACIFIC OCEAN > SOUTH CHINA AND EASTERN ARCHIPELAGIC SEAS", "OCEAN > PACIFIC OCEAN > WESTERN PACIFIC OCEAN > SOUTH CHINA SEA", "OCEAN > SOUTHERN OCEAN"));
+        assertThat(results, not(hasItem("BLAH > SOUTHERN OCEAN")));
+    }
+
 
 }

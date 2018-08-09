@@ -1,5 +1,6 @@
 package gov.noaa.onestop.gcmd.service;
 
+import com.opencsv.CSVReader;
 import org.springframework.stereotype.Component;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
@@ -13,8 +14,10 @@ import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -60,6 +63,18 @@ public class GcmdService {
                 .collect(Collectors.toList());
 
         return themeKeywords;
+    }
+
+    public List<String> get_model_theme_keywords_list() throws IOException, SAXException {
+        URL url = new URL("https://gcmdservices.gsfc.nasa.gov/static/kms/sciencekeywords/sciencekeywords.csv");
+        BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
+        CSVReader data = new CSVReader(in);
+        ArrayList<String> modelThemeKeywordsList = new ArrayList<String>();
+        String[] row;
+        while ((row = data.readNext()) != null) {
+            modelThemeKeywordsList.add(row[0] + " > " + row[1] + " > " + row[2] + " > " + row[3] + " > " + row[4]);
+        }
+        return modelThemeKeywordsList;
     }
 
     // DATACENTER KEYWORDS

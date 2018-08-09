@@ -44,6 +44,9 @@ public class GcmdServiceTest {
     public void test_get_model_theme_keywords_list() throws IOException, SAXException {
         List<String> results = gcmdService.get_model_theme_keywords_list();
         assertThat(results.size(), greaterThan(3100));
+        assertThat(results, hasItem("EARTH SCIENCE SERVICES > DATA ANALYSIS AND VISUALIZATION > CALIBRATION/VALIDATION > CALIBRATION"));
+        assertThat(results, hasItem("EARTH SCIENCE > ATMOSPHERE > ATMOSPHERIC CHEMISTRY > NITROGEN COMPOUNDS > CLOUD-SCREENED TOTAL COLUMN NITROGEN DIOXIDE (NO2)"));
+        assertThat(results, not(hasItem("BLAH > EARTH SCIENCE")));
     }
 
 

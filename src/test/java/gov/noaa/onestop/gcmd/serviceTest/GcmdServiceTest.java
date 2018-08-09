@@ -62,5 +62,13 @@ public class GcmdServiceTest {
         assertThat(results, not(hasItem("BLAH > SOUTHERN OCEAN")));
     }
 
+    @Test
+    public void test_get_instrument_keywords() throws IOException, XPathExpressionException, SAXException {
+        List<String> results = gcmdService.get_instrument_keywords(gcmdService.get_xml_document(testfile));
+        assertThat(results, hasSize(5));
+        assertThat(results, containsInAnyOrder("AATSR", "AMSR-E > Advanced Microwave Scanning Radiometer-EOS", "AMSR2 > Advanced Microwave Scanning Radiometer 2", "AVHRR-3 > Advanced Very High Resolution Radiometer-3", "WINDSA"));
+        assertThat(results, not(hasItem("AATSM")));
+    }
+
 
 }

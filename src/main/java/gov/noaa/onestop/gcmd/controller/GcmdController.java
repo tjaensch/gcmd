@@ -59,4 +59,10 @@ public class GcmdController {
         return service.get_platform_keywords(xmlDocument);
     }
 
+    @RequestMapping("/show_instrument_keywords")
+    public List<String> show_instrument_keywords() throws IOException, XPathExpressionException, ParserConfigurationException,
+            SAXException, TransformerException {
+        return service.get_instrument_keywords(xmlDocument);
+    }
+
 }

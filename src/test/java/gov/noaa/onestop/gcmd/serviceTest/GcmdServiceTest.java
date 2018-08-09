@@ -70,5 +70,13 @@ public class GcmdServiceTest {
         assertThat(results, not(hasItem("AATSM")));
     }
 
+    @Test
+    public void test_get_project_keywords() throws IOException, XPathExpressionException, SAXException {
+        List<String> results = gcmdService.get_project_keywords(gcmdService.get_xml_document(testfile));
+        assertThat(results, hasSize(2));
+        assertThat(results, containsInAnyOrder("GHRSST > Group for High Resolution Sea Surface Temperature", "NOAA OneStop"));
+        assertThat(results, not(hasItem("BLAH Project")));
+    }
+
 
 }

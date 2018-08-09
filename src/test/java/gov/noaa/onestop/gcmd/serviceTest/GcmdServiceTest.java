@@ -16,6 +16,7 @@ import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 import static org.hamcrest.core.IsCollectionContaining.hasItem;
 import static org.hamcrest.core.IsNot.not;
+import static org.hamcrest.number.OrderingComparison.greaterThan;
 import static org.junit.Assert.assertThat;
 
 
@@ -30,6 +31,7 @@ public class GcmdServiceTest {
         testfile = file.toURI().toURL();
     }
 
+    // THEME KEYWORDS
     @Test
     public void test_get_theme_keywords() throws IOException, XPathExpressionException, SAXException {
         List<String> results = gcmdService.get_theme_keywords(gcmdService.get_xml_document(testfile));
@@ -39,6 +41,14 @@ public class GcmdServiceTest {
     }
 
     @Test
+    public void test_get_model_theme_keywords_list() throws IOException, SAXException {
+        List<String> results = gcmdService.get_model_theme_keywords_list();
+        assertThat(results.size(), greaterThan(3100));
+    }
+
+
+    // DATACENTER KEYWORDS
+    @Test
     public void test_get_datacenter_keywords() throws IOException, XPathExpressionException, SAXException {
         List<String> results = gcmdService.get_datacenter_keywords(gcmdService.get_xml_document(testfile));
         assertThat(results, hasSize(3));
@@ -46,6 +56,7 @@ public class GcmdServiceTest {
         assertThat(results, not(hasItem("BLAH > DOC/NOAA/NESDIS/NODC")));
     }
 
+    // PLACE KEYWORDS
     @Test
     public void test_get_place_keywords() throws IOException, XPathExpressionException, SAXException {
         List<String> results = gcmdService.get_place_keywords(gcmdService.get_xml_document(testfile));
@@ -54,6 +65,7 @@ public class GcmdServiceTest {
         assertThat(results, not(hasItem("BLAH > SOUTHERN OCEAN")));
     }
 
+    // PLATFORM KEYWORDS
     @Test
     public void test_get_platform_keywords() throws IOException, XPathExpressionException, SAXException {
         List<String> results = gcmdService.get_platform_keywords(gcmdService.get_xml_document(testfile));
@@ -62,6 +74,7 @@ public class GcmdServiceTest {
         assertThat(results, not(hasItem("BLAH > SOUTHERN OCEAN")));
     }
 
+    // INSTRUMENT KEYWORDS
     @Test
     public void test_get_instrument_keywords() throws IOException, XPathExpressionException, SAXException {
         List<String> results = gcmdService.get_instrument_keywords(gcmdService.get_xml_document(testfile));
@@ -70,6 +83,7 @@ public class GcmdServiceTest {
         assertThat(results, not(hasItem("AATSM")));
     }
 
+    // PROJECT KEYWORDS
     @Test
     public void test_get_project_keywords() throws IOException, XPathExpressionException, SAXException {
         List<String> results = gcmdService.get_project_keywords(gcmdService.get_xml_document(testfile));

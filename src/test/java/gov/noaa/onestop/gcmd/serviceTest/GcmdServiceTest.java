@@ -54,5 +54,13 @@ public class GcmdServiceTest {
         assertThat(results, not(hasItem("BLAH > SOUTHERN OCEAN")));
     }
 
+    @Test
+    public void test_get_platform_keywords() throws IOException, XPathExpressionException, SAXException {
+        List<String> results = gcmdService.get_platform_keywords(gcmdService.get_xml_document(testfile));
+        assertThat(results, hasSize(9));
+        assertThat(results, containsInAnyOrder("AQUA > Earth Observing System, AQUA", "CORIOLIS > Coriolis", "ENVISAT > Environmental Satellite", "GCOM-W1 > Global Change Observation Mission 1st-Water", "METOP-A > Meteorological Operational Satellite - A", "METOP-B", "NOAA-17 > National Oceanic & Atmospheric Administration-17", "NOAA-18 > National Oceanic & Atmospheric Administration-18", "NOAA-19 > National Oceanic & Atmospheric Administration-19"));
+        assertThat(results, not(hasItem("BLAH > SOUTHERN OCEAN")));
+    }
+
 
 }

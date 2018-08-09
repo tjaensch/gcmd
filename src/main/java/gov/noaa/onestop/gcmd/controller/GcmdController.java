@@ -53,4 +53,10 @@ public class GcmdController {
         return service.get_place_keywords(xmlDocument);
     }
 
+    @RequestMapping("/show_platform_keywords")
+    public List<String> show_platform_keywords() throws IOException, XPathExpressionException, ParserConfigurationException,
+            SAXException, TransformerException {
+        return service.get_platform_keywords(xmlDocument);
+    }
+
 }

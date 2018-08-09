@@ -117,4 +117,22 @@ public class GcmdService {
         return placeKeywords;
     }
 
+    // PLATFORM KEYWORDS
+    public List<String> get_platform_keywords(Document xmlDocument) throws IOException, XPathExpressionException {
+        XPath xPath = XPathFactory.newInstance().newXPath();
+        String expression = "//*[local-name()='MD_DataIdentification']/*[local-name()"
+                + "='descriptiveKeywords']/*[local-name()='MD_Keywords'][*[local-name()='type']/*[local-name()"
+                + "='MD_KeywordTypeCode'][@*[local-name() = 'codeListValue' and .='platform']]]/*[local-name()"
+                + "='keyword'][../*[local-name()='thesaurusName']/*[local-name()='CI_Citation']/*[local-name()"
+                + "='title']/*[contains(text(), 'GCMD')]]/*";
+        NodeList nodeList = (NodeList) xPath.compile(expression).evaluate(xmlDocument, XPathConstants.NODESET);
+
+        List<String> platformKeywords = IntStream.range(0, nodeList.getLength())
+                .mapToObj(nodeList::item)
+                .map(n -> n.getTextContent().replace("\n", "").trim().replaceAll(" +", " "))
+                .collect(Collectors.toList());
+
+        return platformKeywords;
+    }
+
 }

@@ -59,6 +59,15 @@ public class GcmdServiceTest {
         assertThat(results, not(hasItem("BLAH > DOC/NOAA/NESDIS/NODC")));
     }
 
+    @Test
+    public void test_get_model_datacenter_keywords_list() throws IOException, SAXException {
+        List<String> results = gcmdService.get_model_datacenter_keywords_list();
+        assertThat(results.size(), greaterThan(3600));
+        assertThat(results, hasItem("USDA/CSREES/PMC/UMES/UMN > PEST MANAGEMENT CENTER, UNIVERSITY OF MINNESOTA EXTENSION SERVICES, UNIVERSITY OF MINNESOTA, USDA-CSREES"));
+        assertThat(results, hasItem("DOC/NOAA/NESDIS/NCEI > NATIONAL CENTERS FOR ENVIRONMENTAL INFORMATION, NESDIS, NOAA, U.S. DEPARTMENT OF COMMERCE"));
+        assertThat(results, not(hasItem("BLAH > EARTH SCIENCE")));
+    }
+
     // PLACE KEYWORDS
     @Test
     public void test_get_place_keywords() throws IOException, XPathExpressionException, SAXException {

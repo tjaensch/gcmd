@@ -126,6 +126,29 @@ public class GcmdService {
         return datacenterKeywords;
     }
 
+    public List<String> get_model_datacenter_keywords_list() throws IOException, SAXException {
+        URL url = new URL("https://gcmdservices.gsfc.nasa.gov/static/kms/providers/providers.csv");
+        BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
+        CSVReader data = new CSVReader(in);
+        ArrayList<String> modelDatacenterKeywordsList = new ArrayList<String>();
+        String[] row;
+        while ((row = data.readNext()) != null) {
+            String keyword = row[4];
+            for(int i = 5; i < 6; i++) {
+                try {
+                    if (!StringUtils.isBlank(row[i])) {
+                        keyword = keyword + " > " + row[i];
+                    }
+                }
+                catch (IndexOutOfBoundsException e) {
+                    continue;
+                }
+            }
+            modelDatacenterKeywordsList.add(keyword.toUpperCase());
+        }
+        return modelDatacenterKeywordsList;
+    }
+
     // PLACE KEYWORDS
     public List<String> get_place_keywords(Document xmlDocument) throws IOException, XPathExpressionException {
         XPath xPath = XPathFactory.newInstance().newXPath();

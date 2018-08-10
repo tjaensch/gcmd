@@ -54,24 +54,33 @@ public class GcmdController {
         return service.get_datacenter_keywords(xmlDocument);
     }
 
+    @RequestMapping("/show_model_datacenter_keywords")
+    public List<String> get_model_datacenter_keywords_list() throws IOException, SAXException {
+        return service.get_model_datacenter_keywords_list();
+    }
+
+    // PLACE KEYWORDS
     @RequestMapping("/show_place_keywords")
     public List<String> show_place_keywords() throws IOException, XPathExpressionException, ParserConfigurationException,
             SAXException, TransformerException {
         return service.get_place_keywords(xmlDocument);
     }
 
+    // PLATFORM KEYWORDS
     @RequestMapping("/show_platform_keywords")
     public List<String> show_platform_keywords() throws IOException, XPathExpressionException, ParserConfigurationException,
             SAXException, TransformerException {
         return service.get_platform_keywords(xmlDocument);
     }
 
+    // INSTRUMENT KEYWORDS
     @RequestMapping("/show_instrument_keywords")
     public List<String> show_instrument_keywords() throws IOException, XPathExpressionException, ParserConfigurationException,
             SAXException, TransformerException {
         return service.get_instrument_keywords(xmlDocument);
     }
 
+    // PROJECT KEYWORDS
     @RequestMapping("/show_project_keywords")
     public List<String> show_project_keywords() throws IOException, XPathExpressionException, ParserConfigurationException,
             SAXException, TransformerException {

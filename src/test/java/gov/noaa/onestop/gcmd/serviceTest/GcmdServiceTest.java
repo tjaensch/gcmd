@@ -65,7 +65,7 @@ public class GcmdServiceTest {
         assertThat(results.size(), greaterThan(3600));
         assertThat(results, hasItem("USDA/CSREES/PMC/UMES/UMN > PEST MANAGEMENT CENTER, UNIVERSITY OF MINNESOTA EXTENSION SERVICES, UNIVERSITY OF MINNESOTA, USDA-CSREES"));
         assertThat(results, hasItem("DOC/NOAA/NESDIS/NCEI > NATIONAL CENTERS FOR ENVIRONMENTAL INFORMATION, NESDIS, NOAA, U.S. DEPARTMENT OF COMMERCE"));
-        assertThat(results, not(hasItem("BLAH > EARTH SCIENCE")));
+        assertThat(results, not(hasItem("BLAH > DOC/NOAA/NESDIS/NCEI")));
     }
 
     // PLACE KEYWORDS
@@ -75,6 +75,15 @@ public class GcmdServiceTest {
         assertThat(results, hasSize(9));
         assertThat(results, containsInAnyOrder("Oceania", "OCEAN > INDIAN OCEAN", "OCEAN > INDIAN OCEAN > ARABIAN SEA", "OCEAN > INDIAN OCEAN > BAY OF BENGAL", "OCEAN > PACIFIC OCEAN > NORTH PACIFIC OCEAN", "OCEAN > PACIFIC OCEAN > SOUTH PACIFIC OCEAN", "OCEAN > PACIFIC OCEAN > WESTERN PACIFIC OCEAN > SOUTH CHINA AND EASTERN ARCHIPELAGIC SEAS", "OCEAN > PACIFIC OCEAN > WESTERN PACIFIC OCEAN > SOUTH CHINA SEA", "OCEAN > SOUTHERN OCEAN"));
         assertThat(results, not(hasItem("BLAH > SOUTHERN OCEAN")));
+    }
+
+    @Test
+    public void test_get_model_place_keywords_list() throws IOException, SAXException {
+        List<String> results = gcmdService.get_model_place_keywords_list();
+        assertThat(results.size(), greaterThan(520));
+        assertThat(results, hasItem("OCEAN > ATLANTIC OCEAN > NORTH ATLANTIC OCEAN > CARIBBEAN SEA > ANTIGUA AND BARBUDA"));
+        assertThat(results, hasItem("OCEAN > ATLANTIC OCEAN > NORTH ATLANTIC OCEAN > NORWEGIAN SEA > FAEROE ISLANDS"));
+        assertThat(results, not(hasItem("BLAH > OCEAN")));
     }
 
     // PLATFORM KEYWORDS

@@ -167,6 +167,29 @@ public class GcmdService {
         return placeKeywords;
     }
 
+    public List<String> get_model_place_keywords_list() throws IOException, SAXException {
+        URL url = new URL("https://gcmdservices.gsfc.nasa.gov/static/kms/locations/locations.csv");
+        BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
+        CSVReader data = new CSVReader(in);
+        ArrayList<String> modelPlaceKeywordsList = new ArrayList<String>();
+        String[] row;
+        while ((row = data.readNext()) != null) {
+            String keyword = row[0];
+            for(int i = 1; i < 5; i++) {
+                try {
+                    if (!StringUtils.isBlank(row[i])) {
+                        keyword = keyword + " > " + row[i];
+                    }
+                }
+                catch (IndexOutOfBoundsException e) {
+                    continue;
+                }
+            }
+            modelPlaceKeywordsList.add(keyword.toUpperCase());
+        }
+        return modelPlaceKeywordsList;
+    }
+
     // PLATFORM KEYWORDS
     public List<String> get_platform_keywords(Document xmlDocument) throws IOException, XPathExpressionException {
         XPath xPath = XPathFactory.newInstance().newXPath();

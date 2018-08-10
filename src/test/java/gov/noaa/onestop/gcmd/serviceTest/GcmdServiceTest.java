@@ -106,6 +106,15 @@ public class GcmdServiceTest {
         assertThat(results, not(hasItem("BLAH > OCEAN")));
     }
 
+    @Test
+    public void test_get_invalid_place_keywords() throws IOException, SAXException, XPathExpressionException {
+        List<String> results = gcmdService.get_invalid_place_keywords();
+        assertThat(results, hasSize(1));
+        assertThat(results, hasItem("Oceania"));
+        assertThat(results, not(hasItem("OCEAN > PACIFIC OCEAN > NORTH PACIFIC OCEAN")));
+        assertThat(results, not(hasItem("OCEAN > INDIAN OCEAN")));
+    }
+
     // PLATFORM KEYWORDS
     @Test
     public void test_get_platform_keywords() throws IOException, XPathExpressionException, SAXException {

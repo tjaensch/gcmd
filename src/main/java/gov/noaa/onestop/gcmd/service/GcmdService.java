@@ -216,6 +216,19 @@ public class GcmdService {
         return modelPlaceKeywordsList;
     }
 
+    public List<String> get_invalid_place_keywords() throws IOException, SAXException, XPathExpressionException {
+        List<String> modelPlaceKeywordsList = get_model_place_keywords_list();
+        List<String> placeKeywordsList = get_place_keywords(xmlDocument);
+        // check if file place keywords are in modelPlaceKeywordsList ignoring case
+        ArrayList<String> invalidKeywordsList = new ArrayList<String>();
+        for (String keyword : placeKeywordsList) {
+            if (!modelPlaceKeywordsList.contains(keyword.toUpperCase())) {
+                invalidKeywordsList.add(keyword);
+            }
+        }
+        return invalidKeywordsList;
+    }
+
     // PLATFORM KEYWORDS
     public List<String> get_platform_keywords(Document xmlDocument) throws IOException, XPathExpressionException {
         XPath xPath = XPathFactory.newInstance().newXPath();

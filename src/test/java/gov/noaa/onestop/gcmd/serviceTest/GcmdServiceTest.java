@@ -113,6 +113,15 @@ public class GcmdServiceTest {
         assertThat(results, not(hasItem("AATSM")));
     }
 
+    @Test
+    public void test_get_model_instrument_keywords_list() throws IOException, SAXException {
+        List<String> results = gcmdService.get_model_instrument_keywords_list();
+        assertThat(results.size(), greaterThan(1590));
+        assertThat(results, hasItem("EARTH REMOTE SENSING INSTRUMENTS > ACTIVE REMOTE SENSING > ALTIMETERS > LIDAR/LASER ALTIMETERS > ATLAS > ADVANCED TOPOGRAPHIC LASER ALTIMETER SYSTEM"));
+        assertThat(results, hasItem("EARTH REMOTE SENSING INSTRUMENTS > PASSIVE REMOTE SENSING > SPECTROMETERS/RADIOMETERS > IMAGING SPECTROMETERS/RADIOMETERS > MESSR > MULTISPECTRAL ELECTRONIC SELF-SCANNING RADIOMETER"));
+        assertThat(results, not(hasItem("BLAH > EARTH REMOTE SENSING INSTRUMENTS")));
+    }
+
     // PROJECT KEYWORDS
     @Test
     public void test_get_project_keywords() throws IOException, XPathExpressionException, SAXException {

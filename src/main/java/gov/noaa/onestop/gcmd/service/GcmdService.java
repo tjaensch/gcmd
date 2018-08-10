@@ -249,6 +249,29 @@ public class GcmdService {
         return instrumentKeywords;
     }
 
+    public List<String> get_model_instrument_keywords_list() throws IOException, SAXException {
+        URL url = new URL("https://gcmdservices.gsfc.nasa.gov/static/kms/instruments/instruments.csv");
+        BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
+        CSVReader data = new CSVReader(in);
+        ArrayList<String> modelInstrumentKeywordsList = new ArrayList<String>();
+        String[] row;
+        while ((row = data.readNext()) != null) {
+            String keyword = row[0];
+            for(int i = 1; i < 6; i++) {
+                try {
+                    if (!StringUtils.isBlank(row[i])) {
+                        keyword = keyword + " > " + row[i];
+                    }
+                }
+                catch (IndexOutOfBoundsException e) {
+                    continue;
+                }
+            }
+            modelInstrumentKeywordsList.add(keyword.toUpperCase());
+        }
+        return modelInstrumentKeywordsList;
+    }
+
     // PROJECT KEYWORDS
     public List<String> get_project_keywords(Document xmlDocument) throws IOException, XPathExpressionException {
         XPath xPath = XPathFactory.newInstance().newXPath();

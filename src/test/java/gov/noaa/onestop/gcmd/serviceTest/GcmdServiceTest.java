@@ -95,6 +95,15 @@ public class GcmdServiceTest {
         assertThat(results, not(hasItem("BLAH > SOUTHERN OCEAN")));
     }
 
+    @Test
+    public void test_get_model_platform_keywords_list() throws IOException, SAXException {
+        List<String> results = gcmdService.get_model_platform_keywords_list();
+        assertThat(results.size(), greaterThan(870));
+        assertThat(results, hasItem("STS-43 > SPACE TRANSPORT SYSTEM STS-43"));
+        assertThat(results, hasItem("A340-600 > AIRBUS A340-600"));
+        assertThat(results, not(hasItem("BLAH > AIRCRAFT")));
+    }
+
     // INSTRUMENT KEYWORDS
     @Test
     public void test_get_instrument_keywords() throws IOException, XPathExpressionException, SAXException {

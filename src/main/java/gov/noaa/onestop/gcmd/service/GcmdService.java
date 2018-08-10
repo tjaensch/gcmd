@@ -208,6 +208,29 @@ public class GcmdService {
         return platformKeywords;
     }
 
+    public List<String> get_model_platform_keywords_list() throws IOException, SAXException {
+        URL url = new URL("https://gcmdservices.gsfc.nasa.gov/static/kms/platforms/platforms.csv");
+        BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
+        CSVReader data = new CSVReader(in);
+        ArrayList<String> modelPlatformKeywordsList = new ArrayList<String>();
+        String[] row;
+        while ((row = data.readNext()) != null) {
+            String keyword = row[2];
+            for(int i = 3; i < 4; i++) {
+                try {
+                    if (!StringUtils.isBlank(row[i])) {
+                        keyword = keyword + " > " + row[i];
+                    }
+                }
+                catch (IndexOutOfBoundsException e) {
+                    continue;
+                }
+            }
+            modelPlatformKeywordsList.add(keyword.toUpperCase());
+        }
+        return modelPlatformKeywordsList;
+    }
+
     // INSTRUMENT KEYWORDS
     public List<String> get_instrument_keywords(Document xmlDocument) throws IOException, XPathExpressionException {
         XPath xPath = XPathFactory.newInstance().newXPath();

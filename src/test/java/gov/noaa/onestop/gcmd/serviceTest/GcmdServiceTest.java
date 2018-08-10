@@ -79,6 +79,15 @@ public class GcmdServiceTest {
         assertThat(results, not(hasItem("BLAH > DOC/NOAA/NESDIS/NCEI")));
     }
 
+    @Test
+    public void test_get_invalid_datacenter_keywords() throws IOException, SAXException, XPathExpressionException {
+        List<String> results = gcmdService.get_invalid_datacenter_keywords();
+        assertThat(results, hasSize(1));
+        assertThat(results, hasItem("DOC/NOAA/NESDIS/NODC"));
+        assertThat(results, not(hasItem("DOC/NOAA/NESDIS/NCEI > National Centers for Environmental Information, NESDIS, NOAA, U.S. Department of Commerce")));
+        assertThat(results, not(hasItem("NASA/JPL/PODAAC > Physical Oceanography Distributed Active Archive Center, Jet Propulsion Laboratory, NASA")));
+    }
+
     // PLACE KEYWORDS
     @Test
     public void test_get_place_keywords() throws IOException, XPathExpressionException, SAXException {

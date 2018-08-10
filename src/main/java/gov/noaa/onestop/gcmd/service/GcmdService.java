@@ -92,7 +92,7 @@ public class GcmdService {
     public List<String> get_invalid_theme_keywords() throws IOException, SAXException, XPathExpressionException {
         List<String> modelThemeKeywordsList = get_model_theme_keywords_list();
         List<String> themeKeywordsList = get_theme_keywords(xmlDocument);
-        // check if file theme keywords are in modelKeywordsList ignoring case
+        // check if file theme keywords are in modelThemeKeywordsList ignoring case
         ArrayList<String> invalidKeywordsList = new ArrayList<String>();
         for (String keyword : themeKeywordsList) {
             if (!modelThemeKeywordsList.contains(keyword.toUpperCase())) {
@@ -160,6 +160,19 @@ public class GcmdService {
             modelDatacenterKeywordsList.add(keyword.toUpperCase());
         }
         return modelDatacenterKeywordsList;
+    }
+
+    public List<String> get_invalid_datacenter_keywords() throws IOException, SAXException, XPathExpressionException {
+        List<String> modelDatacenterKeywordsList = get_model_datacenter_keywords_list();
+        List<String> datacenterKeywordsList = get_datacenter_keywords(xmlDocument);
+        // check if file datacenter keywords are in modelDatacenterKeywordsList ignoring case
+        ArrayList<String> invalidKeywordsList = new ArrayList<String>();
+        for (String keyword : datacenterKeywordsList) {
+            if (!modelDatacenterKeywordsList.contains(keyword.toUpperCase())) {
+                invalidKeywordsList.add(keyword);
+            }
+        }
+        return invalidKeywordsList;
     }
 
     // PLACE KEYWORDS

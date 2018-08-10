@@ -63,6 +63,11 @@ public class GcmdController {
         return service.get_model_datacenter_keywords_list();
     }
 
+    @RequestMapping("/show_invalid_datacenter_keywords")
+    public List<String> show_invalid_datacenter_keywords() throws IOException, SAXException, XPathExpressionException {
+        return service.get_invalid_datacenter_keywords();
+    }
+
     // PLACE KEYWORDS
     @RequestMapping("/show_place_keywords")
     public List<String> show_place_keywords() throws IOException, XPathExpressionException, ParserConfigurationException,

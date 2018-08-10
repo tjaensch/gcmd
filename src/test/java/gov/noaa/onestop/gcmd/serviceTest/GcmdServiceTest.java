@@ -131,5 +131,13 @@ public class GcmdServiceTest {
         assertThat(results, not(hasItem("BLAH Project")));
     }
 
+    @Test
+    public void test_get_model_project_keywords_list() throws IOException, SAXException {
+        List<String> results = gcmdService.get_model_project_keywords_list();
+        assertThat(results.size(), greaterThan(1700));
+        assertThat(results, hasItem("NOAA ONESTOP PROJECT"));
+        assertThat(results, hasItem("NORTHERN GENEALOGIES > NORTHERN GENEALOGIES: DEVELOPMENT OF AN ETHNODEMOGRAPHIC INFORMATIONAL SYSTEM ON THE PEOPLES OF SIBERIA AND THE RUSSIAN NORTH"));
+        assertThat(results, not(hasItem("BLAH > NOAA")));
+    }
 
 }

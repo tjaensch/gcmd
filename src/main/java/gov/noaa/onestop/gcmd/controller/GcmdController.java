@@ -102,4 +102,9 @@ public class GcmdController {
         return service.get_project_keywords(xmlDocument);
     }
 
+    @RequestMapping("/show_model_project_keywords")
+    public List<String> get_model_project_keywords_list() throws IOException, SAXException {
+        return service.get_model_project_keywords_list();
+    }
+
 }

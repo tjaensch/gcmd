@@ -289,4 +289,27 @@ public class GcmdService {
 
         return projectKeywords;
     }
+
+    public List<String> get_model_project_keywords_list() throws IOException, SAXException {
+        URL url = new URL("https://gcmdservices.gsfc.nasa.gov/static/kms/projects/projects.csv");
+        BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
+        CSVReader data = new CSVReader(in);
+        ArrayList<String> modelProjectKeywordsList = new ArrayList<String>();
+        String[] row;
+        while ((row = data.readNext()) != null) {
+            String keyword = row[1];
+            for(int i = 2; i < 3; i++) {
+                try {
+                    if (!StringUtils.isBlank(row[i])) {
+                        keyword = keyword + " > " + row[i];
+                    }
+                }
+                catch (IndexOutOfBoundsException e) {
+                    continue;
+                }
+            }
+            modelProjectKeywordsList.add(keyword.toUpperCase());
+        }
+        return modelProjectKeywordsList;
+    }
 }

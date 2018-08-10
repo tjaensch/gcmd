@@ -37,14 +37,18 @@ public class GcmdController {
 
     // THEME KEYWORDS
     @RequestMapping("/show_theme_keywords")
-    public List<String> show_theme_keywords() throws IOException, XPathExpressionException, ParserConfigurationException,
-            SAXException, TransformerException {
+    public List<String> show_theme_keywords() throws Exception {
         return service.get_theme_keywords(xmlDocument);
     }
 
     @RequestMapping("/show_model_theme_keywords")
     public List<String> get_model_theme_keywords_list() throws IOException, SAXException {
         return service.get_model_theme_keywords_list();
+    }
+
+    @RequestMapping("/show_invalid_theme_keywords")
+    public List<String> show_invalid_theme_keywords() throws IOException, SAXException, XPathExpressionException {
+        return service.get_invalid_theme_keywords();
     }
 
     // DATACENTER KEYWORDS

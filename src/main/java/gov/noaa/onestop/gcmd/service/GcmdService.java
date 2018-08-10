@@ -1,12 +1,12 @@
 package gov.noaa.onestop.gcmd.service;
 
 import com.opencsv.CSVReader;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
-import org.apache.commons.lang3.StringUtils;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -87,6 +87,19 @@ public class GcmdService {
             modelThemeKeywordsList.add(keyword.toUpperCase());
         }
         return modelThemeKeywordsList;
+    }
+
+    public List<String> get_invalid_theme_keywords() throws IOException, SAXException, XPathExpressionException {
+        List<String> modelThemeKeywordsList = get_model_theme_keywords_list();
+        List<String> themeKeywordsList = get_theme_keywords(xmlDocument);
+        // check if file theme keywords are in modelKeywordsList ignoring case
+        ArrayList<String> invalidKeywordsList = new ArrayList<String>();
+        for (String keyword : themeKeywordsList) {
+            if (!modelThemeKeywordsList.contains(keyword.toUpperCase())) {
+                invalidKeywordsList.add(keyword);
+            }
+        }
+        return invalidKeywordsList;
     }
 
     // DATACENTER KEYWORDS

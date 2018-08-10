@@ -3,12 +3,12 @@ package gov.noaa.onestop.gcmd.serviceTest;
 import gov.noaa.onestop.gcmd.service.GcmdService;
 import org.junit.Before;
 import org.junit.Test;
+import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
 import javax.xml.xpath.XPathExpressionException;
 import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 
@@ -23,12 +23,14 @@ import static org.junit.Assert.assertThat;
 public class GcmdServiceTest {
     GcmdService gcmdService = new GcmdService();
     public URL testfile;
+    public Document xmlDocument;
 
     @Before
-    public void setUp() throws MalformedURLException {
+    public void setUp() throws IOException, SAXException {
         ClassLoader classLoader = getClass().getClassLoader();
         File file = new File(classLoader.getResource("static/collection_test_files/GHRSST-ABOM-L4HRfnd-AUS-RAMSSA_09km.xml").getFile());
         testfile = file.toURI().toURL();
+        xmlDocument = (Document) gcmdService.get_xml_document(testfile);
     }
 
     // THEME KEYWORDS
@@ -47,6 +49,15 @@ public class GcmdServiceTest {
         assertThat(results, hasItem("EARTH SCIENCE SERVICES > DATA ANALYSIS AND VISUALIZATION > CALIBRATION/VALIDATION > CALIBRATION"));
         assertThat(results, hasItem("EARTH SCIENCE > ATMOSPHERE > ATMOSPHERIC CHEMISTRY > NITROGEN COMPOUNDS > CLOUD-SCREENED TOTAL COLUMN NITROGEN DIOXIDE (NO2)"));
         assertThat(results, not(hasItem("BLAH > EARTH SCIENCE")));
+    }
+
+    @Test
+    public void test_get_invalid_theme_keywords() throws IOException, SAXException, XPathExpressionException {
+        List<String> results = gcmdService.get_invalid_theme_keywords();
+        assertThat(results, hasSize(1));
+        assertThat(results, hasItem("Earth Science > Oceans > Ocean Temperature > Sea Surface Temperature > Foundation Sea Surface Temperature"));
+        assertThat(results, not(hasItem("EARTH SCIENCE > OCEANS > OCEAN TEMPERATURE > SEA SURFACE TEMPERATURE > FOUNDATION SEA SURFACE TEMPERATURE")));
+        assertThat(results, not(hasItem("EARTH SCIENCE > OCEANS > OCEAN TEMPERATURE > SEA SURFACE TEMPERATURE")));
     }
 
 

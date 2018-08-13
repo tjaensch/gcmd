@@ -308,8 +308,8 @@ public class GcmdService {
         ArrayList<String> modelInstrumentKeywordsList = new ArrayList<String>();
         String[] row;
         while ((row = data.readNext()) != null) {
-            String keyword = row[0];
-            for(int i = 1; i < 6; i++) {
+            String keyword = row[4];
+            for(int i = 5; i < 6; i++) {
                 try {
                     if (!StringUtils.isBlank(row[i])) {
                         keyword = keyword + " > " + row[i];
@@ -322,6 +322,19 @@ public class GcmdService {
             modelInstrumentKeywordsList.add(keyword.toUpperCase());
         }
         return modelInstrumentKeywordsList;
+    }
+
+    public List<String> get_invalid_instrument_keywords() throws IOException, SAXException, XPathExpressionException {
+        List<String> modelInstrumentKeywordsList = get_model_instrument_keywords_list();
+        List<String> instrumentKeywordsList = get_instrument_keywords(xmlDocument);
+        // check if file instrument keywords are in modelInstrumentKeywordsList ignoring case
+        ArrayList<String> invalidKeywordsList = new ArrayList<String>();
+        for (String keyword : instrumentKeywordsList) {
+            if (!modelInstrumentKeywordsList.contains(keyword.toUpperCase())) {
+                invalidKeywordsList.add(keyword);
+            }
+        }
+        return invalidKeywordsList;
     }
 
     // PROJECT KEYWORDS

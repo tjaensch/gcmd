@@ -155,9 +155,18 @@ public class GcmdServiceTest {
     public void test_get_model_instrument_keywords_list() throws IOException, SAXException {
         List<String> results = gcmdService.get_model_instrument_keywords_list();
         assertThat(results.size(), greaterThan(1590));
-        assertThat(results, hasItem("EARTH REMOTE SENSING INSTRUMENTS > ACTIVE REMOTE SENSING > ALTIMETERS > LIDAR/LASER ALTIMETERS > ATLAS > ADVANCED TOPOGRAPHIC LASER ALTIMETER SYSTEM"));
-        assertThat(results, hasItem("EARTH REMOTE SENSING INSTRUMENTS > PASSIVE REMOTE SENSING > SPECTROMETERS/RADIOMETERS > IMAGING SPECTROMETERS/RADIOMETERS > MESSR > MULTISPECTRAL ELECTRONIC SELF-SCANNING RADIOMETER"));
+        assertThat(results, hasItem("ATLAS > ADVANCED TOPOGRAPHIC LASER ALTIMETER SYSTEM"));
+        assertThat(results, hasItem("MESSR > MULTISPECTRAL ELECTRONIC SELF-SCANNING RADIOMETER"));
         assertThat(results, not(hasItem("BLAH > EARTH REMOTE SENSING INSTRUMENTS")));
+    }
+
+    @Test
+    public void test_get_invalid_instrument_keywords() throws IOException, SAXException, XPathExpressionException {
+        List<String> results = gcmdService.get_invalid_instrument_keywords();
+        assertThat(results, hasSize(2));
+        assertThat(results, hasItem("AATSR"));
+        assertThat(results, hasItem("WINDSA"));
+        assertThat(results, not(hasItem("AMSR-E > Advanced Microwave Scanning Radiometer-EOS")));
     }
 
     // PROJECT KEYWORDS

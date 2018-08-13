@@ -114,6 +114,11 @@ public class GcmdController {
         return service.get_model_instrument_keywords_list();
     }
 
+    @RequestMapping("/show_invalid_instrument_keywords")
+    public List<String> show_invalid_instrument_keywords() throws IOException, SAXException, XPathExpressionException {
+        return service.get_invalid_instrument_keywords();
+    }
+
     // PROJECT KEYWORDS
     @RequestMapping("/show_project_keywords")
     public List<String> show_project_keywords() throws IOException, XPathExpressionException, ParserConfigurationException,

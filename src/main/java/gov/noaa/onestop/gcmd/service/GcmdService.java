@@ -377,4 +377,17 @@ public class GcmdService {
         }
         return modelProjectKeywordsList;
     }
+
+    public List<String> get_invalid_project_keywords() throws IOException, SAXException, XPathExpressionException {
+        List<String> modelProjectKeywordsList = get_model_project_keywords_list();
+        List<String> projectKeywordsList = get_project_keywords(xmlDocument);
+        // check if file project keywords are in modelProjectKeywordsList ignoring case
+        ArrayList<String> invalidKeywordsList = new ArrayList<String>();
+        for (String keyword : projectKeywordsList) {
+            if (!modelProjectKeywordsList.contains(keyword.toUpperCase())) {
+                invalidKeywordsList.add(keyword);
+            }
+        }
+        return invalidKeywordsList;
+    }
 }

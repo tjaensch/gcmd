@@ -131,4 +131,9 @@ public class GcmdController {
         return service.get_model_project_keywords_list();
     }
 
+    @RequestMapping("/show_invalid_project_keywords")
+    public List<String> show_invalid_project_keywords() throws IOException, SAXException, XPathExpressionException {
+        return service.get_invalid_project_keywords();
+    }
+
 }

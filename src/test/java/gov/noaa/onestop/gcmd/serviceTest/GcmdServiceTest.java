@@ -187,4 +187,13 @@ public class GcmdServiceTest {
         assertThat(results, not(hasItem("BLAH > NOAA")));
     }
 
+    @Test
+    public void test_get_invalid_project_keywords() throws IOException, SAXException, XPathExpressionException {
+        List<String> results = gcmdService.get_invalid_project_keywords();
+        assertThat(results, hasSize(1));
+        assertThat(results, hasItem("NOAA OneStop"));
+        assertThat(results, not(hasItem("GHRSST > Group for High Resolution Sea Surface Temperature")));
+        assertThat(results, not(hasItem("BLAH > Project")));
+    }
+
 }

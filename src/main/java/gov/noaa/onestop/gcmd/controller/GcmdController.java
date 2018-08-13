@@ -14,6 +14,8 @@ import javax.xml.transform.TransformerException;
 import javax.xml.xpath.XPathExpressionException;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 @RestController
@@ -33,6 +35,12 @@ public class GcmdController {
         URL xmlUrl = urlValue;
         xmlDocument = service.get_xml_document(xmlUrl);
         return xmlUrl;
+    }
+
+    // ALL KEYWORDS
+    @RequestMapping("/show_all_keywords")
+    public HashMap<String, ArrayList> show_all_keywords() throws Exception {
+        return service.get_all_keywords();
     }
 
     // THEME KEYWORDS

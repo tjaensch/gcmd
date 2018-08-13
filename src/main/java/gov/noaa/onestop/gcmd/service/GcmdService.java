@@ -21,6 +21,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -47,6 +48,20 @@ public class GcmdService {
         xmlDocument = builder.parse(new InputSource(input));
         return xmlDocument;
     }
+
+    // ALL KEYWORDS
+    public HashMap<String, ArrayList> get_all_keywords() throws IOException, XPathExpressionException {
+        HashMap allKeywords = new HashMap<String, ArrayList>();
+        allKeywords.put("theme_keyword", get_theme_keywords(xmlDocument));
+        allKeywords.put("datacenter_keyword", get_datacenter_keywords(xmlDocument));
+        allKeywords.put("place_keyword", get_place_keywords(xmlDocument));
+        allKeywords.put("platform_keyword", get_platform_keywords(xmlDocument));
+        allKeywords.put("instrument_keyword", get_instrument_keywords(xmlDocument));
+        allKeywords.put("project_keyword", get_project_keywords(xmlDocument));
+
+        return allKeywords;
+    }
+
 
     // THEME KEYWORDS
     public List<String> get_theme_keywords(Document xmlDocument) throws IOException, XPathExpressionException {

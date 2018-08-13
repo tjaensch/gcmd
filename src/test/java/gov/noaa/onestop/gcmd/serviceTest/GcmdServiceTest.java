@@ -17,6 +17,7 @@ import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 import static org.hamcrest.core.IsCollectionContaining.hasItem;
 import static org.hamcrest.core.IsNot.not;
 import static org.hamcrest.number.OrderingComparison.greaterThan;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
 
 
@@ -37,6 +38,7 @@ public class GcmdServiceTest {
     @Test
     public void test_get_theme_keywords() throws IOException, XPathExpressionException, SAXException {
         List<String> results = gcmdService.get_theme_keywords(gcmdService.get_xml_document(testfile));
+        assertFalse(results.isEmpty());
         assertThat(results, hasSize(2));
         assertThat(results, containsInAnyOrder("EARTH SCIENCE > OCEANS > OCEAN TEMPERATURE > SEA SURFACE TEMPERATURE", "Earth Science > Oceans > Ocean Temperature > Sea Surface Temperature > Foundation Sea Surface Temperature"));
         assertThat(results, not(hasItem("BLAH SCIENCE > OCEANS > OCEAN TEMPERATURE > SEA SURFACE TEMPERATURE")));

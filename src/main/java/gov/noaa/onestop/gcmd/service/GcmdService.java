@@ -99,6 +99,11 @@ public class GcmdService {
                 invalidKeywordsList.add(keyword);
             }
         }
+
+        if (invalidKeywordsList != null && invalidKeywordsList.isEmpty()) {
+            invalidKeywordsList.add("no invalid GCMD Science Keywords found");
+        }
+
         return invalidKeywordsList;
     }
 
@@ -172,6 +177,11 @@ public class GcmdService {
                 invalidKeywordsList.add(keyword);
             }
         }
+
+        if (invalidKeywordsList != null && invalidKeywordsList.isEmpty()) {
+            invalidKeywordsList.add("no invalid GCMD Provider Keywords found");
+        }
+
         return invalidKeywordsList;
     }
 
@@ -226,6 +236,11 @@ public class GcmdService {
                 invalidKeywordsList.add(keyword);
             }
         }
+
+        if (invalidKeywordsList != null && invalidKeywordsList.isEmpty()) {
+            invalidKeywordsList.add("no invalid GCMD Location Keywords found");
+        }
+
         return invalidKeywordsList;
     }
 
@@ -280,6 +295,11 @@ public class GcmdService {
                 invalidKeywordsList.add(keyword);
             }
         }
+
+        if (invalidKeywordsList != null && invalidKeywordsList.isEmpty()) {
+            invalidKeywordsList.add("no invalid GCMD Platform Keywords found");
+        }
+
         return invalidKeywordsList;
     }
 
@@ -334,6 +354,11 @@ public class GcmdService {
                 invalidKeywordsList.add(keyword);
             }
         }
+
+        if (invalidKeywordsList != null && invalidKeywordsList.isEmpty()) {
+            invalidKeywordsList.add("no invalid GCMD Instrument Keywords found");
+        }
+
         return invalidKeywordsList;
     }
 
@@ -388,6 +413,11 @@ public class GcmdService {
                 invalidKeywordsList.add(keyword);
             }
         }
+
+        if (invalidKeywordsList != null && invalidKeywordsList.isEmpty()) {
+            invalidKeywordsList.add("no invalid GCMD Project Keywords found");
+        }
+
         return invalidKeywordsList;
     }
 }

@@ -62,6 +62,18 @@ public class GcmdService {
         return allKeywords;
     }
 
+    public HashMap<String, ArrayList> get_all_invalid_keywords() throws IOException, XPathExpressionException, SAXException {
+        HashMap allInvalidKeywords = new HashMap<String, ArrayList>();
+        allInvalidKeywords.put("invalid_theme_keyword", get_invalid_theme_keywords());
+        allInvalidKeywords.put("invalid_datacenter_keyword", get_invalid_datacenter_keywords());
+        allInvalidKeywords.put("invalid_place_keyword", get_invalid_place_keywords());
+        allInvalidKeywords.put("invalid_platform_keyword", get_invalid_platform_keywords());
+        allInvalidKeywords.put("invalid_instrument_keyword", get_invalid_instrument_keywords());
+        allInvalidKeywords.put("invalid_project_keyword", get_invalid_project_keywords());
+
+        return allInvalidKeywords;
+    }
+
 
     // THEME KEYWORDS
     public List<String> get_theme_keywords(Document xmlDocument) throws IOException, XPathExpressionException {

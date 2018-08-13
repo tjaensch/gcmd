@@ -43,6 +43,11 @@ public class GcmdController {
         return service.get_all_keywords();
     }
 
+    @RequestMapping("/show_all_invalid_keywords")
+    public HashMap<String, ArrayList> show_all_invalid_keywords() throws Exception {
+        return service.get_all_invalid_keywords();
+    }
+
     // THEME KEYWORDS
     @RequestMapping("/show_theme_keywords")
     public List<String> show_theme_keywords() throws Exception {

@@ -133,6 +133,15 @@ public class GcmdServiceTest {
         assertThat(results, not(hasItem("BLAH > AIRCRAFT")));
     }
 
+    @Test
+    public void test_get_invalid_platform_keywords() throws IOException, SAXException, XPathExpressionException {
+        List<String> results = gcmdService.get_invalid_platform_keywords();
+        assertThat(results, hasSize(1));
+        assertThat(results, hasItem("METOP-B"));
+        assertThat(results, not(hasItem("METOP-A > Meteorological Operational Satellite - A")));
+        assertThat(results, not(hasItem("AQUA > Earth Observing System, AQUA")));
+    }
+
     // INSTRUMENT KEYWORDS
     @Test
     public void test_get_instrument_keywords() throws IOException, XPathExpressionException, SAXException {

@@ -270,6 +270,19 @@ public class GcmdService {
         return modelPlatformKeywordsList;
     }
 
+    public List<String> get_invalid_platform_keywords() throws IOException, SAXException, XPathExpressionException {
+        List<String> modelPlatformKeywordsList = get_model_platform_keywords_list();
+        List<String> platformKeywordsList = get_platform_keywords(xmlDocument);
+        // check if file platform keywords are in modelPlatformKeywordsList ignoring case
+        ArrayList<String> invalidKeywordsList = new ArrayList<String>();
+        for (String keyword : platformKeywordsList) {
+            if (!modelPlatformKeywordsList.contains(keyword.toUpperCase())) {
+                invalidKeywordsList.add(keyword);
+            }
+        }
+        return invalidKeywordsList;
+    }
+
     // INSTRUMENT KEYWORDS
     public List<String> get_instrument_keywords(Document xmlDocument) throws IOException, XPathExpressionException {
         XPath xPath = XPathFactory.newInstance().newXPath();

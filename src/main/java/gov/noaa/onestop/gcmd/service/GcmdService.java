@@ -75,15 +75,40 @@ public class GcmdService {
     }
 
     // SIMILAR KEYWORDS
-    public List<String> get_similar_keywords(List<String> modelKeywordsList) throws IOException, SAXException {
-        // get last segment after " > " if exists
-        String keyword = "MICRONUTRIENTS/TRACE ELEMENTS";
+    public List<String> get_similar_keywords(List<String> modelKeywordsList, String keyword) throws IOException, SAXException {
+        // get last segment after " > " of keyword if exists
         String[] segments = keyword.split(" > ");
         String lastSegment = segments[segments.length-1];
 
-        return modelKeywordsList.stream()
+        List<String> similarKeywordsList = modelKeywordsList.stream()
                 .filter(str -> str.contains(lastSegment.toUpperCase()))
                 .collect(Collectors.toList());
+
+        // in no matches with the above method try first half of keyword string
+        if (similarKeywordsList == null || similarKeywordsList.isEmpty()) {
+            String keywordSubstring = keyword.substring(0, keyword.length()/2);
+            similarKeywordsList = modelKeywordsList.stream()
+                    .filter(str -> str.contains(keywordSubstring.toUpperCase()))
+                    .collect(Collectors.toList());
+            }
+
+        // if no matches with the above method try first third of keyword string
+        if (similarKeywordsList == null || similarKeywordsList.isEmpty()) {
+            String keywordSubstring = keyword.substring(0, keyword.length()/3);
+            similarKeywordsList = modelKeywordsList.stream()
+                    .filter(str -> str.contains(keywordSubstring.toUpperCase()))
+                    .collect(Collectors.toList());
+        }
+
+        // if no matches with the above method try latter fractions of keyword string
+        if (similarKeywordsList == null || similarKeywordsList.isEmpty()) {
+            String keywordSubstring = keyword.substring(keyword.length()*13/15, keyword.length());
+            similarKeywordsList = modelKeywordsList.stream()
+                    .filter(str -> str.contains(keywordSubstring.toUpperCase()))
+                    .collect(Collectors.toList());
+        }
+
+        return similarKeywordsList;
     }
 
 

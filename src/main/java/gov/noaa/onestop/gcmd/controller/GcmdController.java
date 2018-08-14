@@ -14,9 +14,7 @@ import javax.xml.transform.TransformerException;
 import javax.xml.xpath.XPathExpressionException;
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 @RestController
 public class GcmdController {
@@ -30,11 +28,15 @@ public class GcmdController {
 
     // Format http://localhost:8080/source_xml?url=https://data.nodc.noaa
     // .gov/nodc/archive/metadata/approved/iso/GHRSST-ABOM-L4HRfnd-AUS-RAMSSA_09km.xml
-    @RequestMapping(value = "source_xml", method = RequestMethod.GET)
-    public URL get_url_value(@RequestParam("url") URL urlValue) throws IOException, SAXException {
+    @RequestMapping(value = "/gcmd_keywords", method = RequestMethod.GET)
+    public HashMap<String, ArrayList> get_url_value(@RequestParam("url") URL urlValue) throws IOException, SAXException, XPathExpressionException {
         URL xmlUrl = urlValue;
         xmlDocument = service.get_xml_document(xmlUrl);
-        return xmlUrl;
+        HashMap<String, ArrayList> allKeywords = service.get_all_keywords();
+        HashMap<String, ArrayList> allInvalidKeywords = service.get_all_invalid_keywords();
+        allInvalidKeywords.forEach(allKeywords::putIfAbsent);
+
+        return allKeywords;
     }
 
     // ALL KEYWORDS

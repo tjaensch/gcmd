@@ -26,7 +26,7 @@ public class GcmdController {
     public GcmdController() throws IOException, SAXException {
     }
 
-    // Format http://localhost:8080/source_xml?url=https://data.nodc.noaa
+    // Format http://localhost:8080/gcmd_keywords?url=https://data.nodc.noaa
     // .gov/nodc/archive/metadata/approved/iso/GHRSST-ABOM-L4HRfnd-AUS-RAMSSA_09km.xml
     @RequestMapping(value = "/gcmd_keywords", method = RequestMethod.GET)
     public HashMap<String, ArrayList> get_url_value(@RequestParam("url") URL urlValue) throws IOException, SAXException, XPathExpressionException {
@@ -48,6 +48,12 @@ public class GcmdController {
     @RequestMapping("/show_all_invalid_keywords")
     public HashMap<String, ArrayList> show_all_invalid_keywords() throws Exception {
         return service.get_all_invalid_keywords();
+    }
+
+    // SIMILAR KEYWORDS
+    @RequestMapping("/show_similar_keywords")
+    public List<String> get_similar_keywords() throws Exception {
+        return service.get_similar_keywords(service.get_model_theme_keywords_list());
     }
 
     // THEME KEYWORDS

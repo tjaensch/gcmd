@@ -74,6 +74,18 @@ public class GcmdService {
         return allInvalidKeywords;
     }
 
+    // SIMILAR KEYWORDS
+    public List<String> get_similar_keywords(List<String> modelKeywordsList) throws IOException, SAXException {
+        // get last segment after " > " if exists
+        String keyword = "MICRONUTRIENTS/TRACE ELEMENTS";
+        String[] segments = keyword.split(" > ");
+        String lastSegment = segments[segments.length-1];
+
+        return modelKeywordsList.stream()
+                .filter(str -> str.contains(lastSegment.toUpperCase()))
+                .collect(Collectors.toList());
+    }
+
 
     // THEME KEYWORDS
     public List<String> get_theme_keywords(Document xmlDocument) throws IOException, XPathExpressionException {

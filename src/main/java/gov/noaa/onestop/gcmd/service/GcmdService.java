@@ -52,24 +52,24 @@ public class GcmdService {
     // ALL KEYWORDS
     public HashMap<String, ArrayList> get_all_keywords() throws IOException, XPathExpressionException {
         HashMap allKeywords = new HashMap<String, ArrayList>();
-        allKeywords.put("theme_keyword", get_theme_keywords(xmlDocument));
-        allKeywords.put("datacenter_keyword", get_datacenter_keywords(xmlDocument));
-        allKeywords.put("place_keyword", get_place_keywords(xmlDocument));
-        allKeywords.put("platform_keyword", get_platform_keywords(xmlDocument));
-        allKeywords.put("instrument_keyword", get_instrument_keywords(xmlDocument));
-        allKeywords.put("project_keyword", get_project_keywords(xmlDocument));
+        allKeywords.put("theme_keywords", get_theme_keywords(xmlDocument));
+        allKeywords.put("datacenter_keywords", get_datacenter_keywords(xmlDocument));
+        allKeywords.put("place_keywords", get_place_keywords(xmlDocument));
+        allKeywords.put("platform_keywords", get_platform_keywords(xmlDocument));
+        allKeywords.put("instrument_keywords", get_instrument_keywords(xmlDocument));
+        allKeywords.put("project_keywords", get_project_keywords(xmlDocument));
 
         return allKeywords;
     }
 
     public HashMap<String, ArrayList> get_all_invalid_keywords() throws IOException, XPathExpressionException, SAXException {
         HashMap allInvalidKeywords = new HashMap<String, ArrayList>();
-        allInvalidKeywords.put("invalid_theme_keyword", get_invalid_theme_keywords());
-        allInvalidKeywords.put("invalid_datacenter_keyword", get_invalid_datacenter_keywords());
-        allInvalidKeywords.put("invalid_place_keyword", get_invalid_place_keywords());
-        allInvalidKeywords.put("invalid_platform_keyword", get_invalid_platform_keywords());
-        allInvalidKeywords.put("invalid_instrument_keyword", get_invalid_instrument_keywords());
-        allInvalidKeywords.put("invalid_project_keyword", get_invalid_project_keywords());
+        allInvalidKeywords.put("invalid_theme_keywords", get_invalid_theme_keywords());
+        allInvalidKeywords.put("invalid_datacenter_keywords", get_invalid_datacenter_keywords());
+        allInvalidKeywords.put("invalid_place_keywords", get_invalid_place_keywords());
+        allInvalidKeywords.put("invalid_platform_keywords", get_invalid_platform_keywords());
+        allInvalidKeywords.put("invalid_instrument_keywords", get_invalid_instrument_keywords());
+        allInvalidKeywords.put("invalid_project_keywords", get_invalid_project_keywords());
 
         return allInvalidKeywords;
     }

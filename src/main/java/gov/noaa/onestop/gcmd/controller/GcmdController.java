@@ -53,7 +53,7 @@ public class GcmdController {
     // SIMILAR KEYWORDS
     @RequestMapping("/show_similar_keywords")
     public List<String> get_similar_keywords() throws Exception {
-        return service.get_similar_keywords(service.get_model_theme_keywords_list(), "Earth Science > Land Surface > Topography > Topographical Relief");
+        return service.get_similar_keywords(service.get_model_instrument_keywords_list(), "Winds");
     }
 
     // THEME KEYWORDS

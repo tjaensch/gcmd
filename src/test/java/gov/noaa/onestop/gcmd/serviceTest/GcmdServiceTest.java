@@ -34,6 +34,17 @@ public class GcmdServiceTest {
         xmlDocument = (Document) gcmdService.get_xml_document(testfile);
     }
 
+    // SIMILAR KEYWORDS
+    @Test
+    public void test_get_similar_keywords() throws IOException, SAXException {
+        List<String> resultsThemeKeywords = gcmdService.get_similar_keywords(gcmdService.get_model_theme_keywords_list(), "Earth Science > Land Surface > Topography > Topographical Relief");
+        assertThat(resultsThemeKeywords, hasItem("EARTH SCIENCE > LAND SURFACE > TOPOGRAPHY > TERRAIN ELEVATION > TOPOGRAPHICAL RELIEF MAPS"));
+        List<String> resultsProjectKeywords = gcmdService.get_similar_keywords(gcmdService.get_model_project_keywords_list(), "Onestop");
+        assertThat(resultsProjectKeywords, hasItem("NOAA ONESTOP PROJECT"));
+        List<String> resultsInstrumentKeywords = gcmdService.get_similar_keywords(gcmdService.get_model_instrument_keywords_list(), "Windsa");
+        assertThat(resultsInstrumentKeywords, hasItem("WINDSAT"));
+    }
+
     // THEME KEYWORDS
     @Test
     public void test_get_theme_keywords() throws IOException, XPathExpressionException, SAXException {

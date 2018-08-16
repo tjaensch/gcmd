@@ -28,7 +28,7 @@ import java.util.stream.IntStream;
 
 
 @Component
-public class GcmdService {
+public class GcmdService<similarKeywords> {
 
     public Document xmlDocument;
 
@@ -109,6 +109,23 @@ public class GcmdService {
         }
 
         return similarKeywordsList;
+    }
+
+    public List<String> apply_keyword_algorithm(Integer hierarchyLevel) throws IOException, SAXException {
+        List<String> similarKeywords = get_similar_keywords(get_model_theme_keywords_list(), "Earth");
+
+        List<String> suggestions = new ArrayList<String>();
+        for (String i : similarKeywords) {
+            try {
+                // shorten string according to hierarchy level and +3 to remove leading ' > '
+                i = i.substring(StringUtils.ordinalIndexOf(i, " > ", hierarchyLevel) + 3, i.length());
+            }
+            catch (IndexOutOfBoundsException e) {
+                continue;
+            }
+            suggestions.add(i);
+        }
+        return suggestions;
     }
 
 

@@ -9,12 +9,12 @@ import org.springframework.web.bind.annotation.RestController;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.TransformerException;
 import javax.xml.xpath.XPathExpressionException;
 import java.io.IOException;
 import java.net.URL;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 @RestController
 public class GcmdController {
@@ -23,7 +23,7 @@ public class GcmdController {
     GcmdService service;
     public Document xmlDocument;
 
-    public GcmdController() throws IOException, SAXException {
+    public GcmdController() {
     }
 
     // Format http://localhost:8080/gcmd_keywords?url=https://data.nodc.noaa
@@ -56,6 +56,11 @@ public class GcmdController {
         return service.get_similar_keywords(service.get_model_instrument_keywords_list(), "Winds");
     }
 
+    @RequestMapping(value = "/apply_keyword_algorithm", produces = "application/json")
+    public List<String> apply_keyword_algorithm() throws Exception {
+        return service.apply_keyword_algorithm(2);
+    }
+
     // THEME KEYWORDS
     @RequestMapping(value = "/show_theme_keywords", produces = "application/json")
     public List<String> show_theme_keywords() throws Exception {
@@ -74,8 +79,7 @@ public class GcmdController {
 
     // DATACENTER KEYWORDS
     @RequestMapping(value = "/show_datacenter_keywords", produces = "application/json")
-    public List<String> show_datacenter_keywords() throws IOException, XPathExpressionException, ParserConfigurationException,
-            SAXException, TransformerException {
+    public List<String> show_datacenter_keywords() throws IOException, XPathExpressionException {
         return service.get_datacenter_keywords(xmlDocument);
     }
 
@@ -91,8 +95,7 @@ public class GcmdController {
 
     // PLACE KEYWORDS
     @RequestMapping(value = "/show_place_keywords", produces = "application/json")
-    public List<String> show_place_keywords() throws IOException, XPathExpressionException, ParserConfigurationException,
-            SAXException, TransformerException {
+    public List<String> show_place_keywords() throws IOException, XPathExpressionException {
         return service.get_place_keywords(xmlDocument);
     }
 
@@ -108,8 +111,7 @@ public class GcmdController {
 
     // PLATFORM KEYWORDS
     @RequestMapping(value = "/show_platform_keywords", produces = "application/json")
-    public List<String> show_platform_keywords() throws IOException, XPathExpressionException, ParserConfigurationException,
-            SAXException, TransformerException {
+    public List<String> show_platform_keywords() throws IOException, XPathExpressionException {
         return service.get_platform_keywords(xmlDocument);
     }
 
@@ -125,8 +127,7 @@ public class GcmdController {
 
     // INSTRUMENT KEYWORDS
     @RequestMapping(value = "/show_instrument_keywords", produces = "application/json")
-    public List<String> show_instrument_keywords() throws IOException, XPathExpressionException, ParserConfigurationException,
-            SAXException, TransformerException {
+    public List<String> show_instrument_keywords() throws IOException, XPathExpressionException {
         return service.get_instrument_keywords(xmlDocument);
     }
 
@@ -142,8 +143,7 @@ public class GcmdController {
 
     // PROJECT KEYWORDS
     @RequestMapping(value = "/show_project_keywords", produces = "application/json")
-    public List<String> show_project_keywords() throws IOException, XPathExpressionException, ParserConfigurationException,
-            SAXException, TransformerException {
+    public List<String> show_project_keywords() throws IOException, XPathExpressionException {
         return service.get_project_keywords(xmlDocument);
     }
 

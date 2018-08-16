@@ -58,7 +58,8 @@ public class GcmdController {
 
     @RequestMapping(value = "/apply_keyword_algorithm", produces = "application/json")
     public List<String> apply_keyword_algorithm() throws Exception {
-        return service.apply_keyword_algorithm(2);
+        return service.apply_keyword_algorithm(service.get_similar_keywords(service.get_model_theme_keywords_list(),
+                "CUMULUS"),2);
     }
 
     // THEME KEYWORDS

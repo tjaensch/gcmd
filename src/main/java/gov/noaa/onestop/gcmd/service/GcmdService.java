@@ -21,6 +21,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -111,9 +112,7 @@ public class GcmdService<similarKeywords> {
         return similarKeywordsList;
     }
 
-    public List<String> apply_keyword_algorithm(Integer hierarchyLevel) throws IOException, SAXException {
-        List<String> similarKeywords = get_similar_keywords(get_model_theme_keywords_list(), "Earth");
-
+    public List<String> apply_keyword_algorithm(List<String> similarKeywords, Integer hierarchyLevel) throws IOException, SAXException {
         List<String> suggestions = new ArrayList<String>();
         for (String i : similarKeywords) {
             try {
@@ -125,6 +124,7 @@ public class GcmdService<similarKeywords> {
             }
             suggestions.add(i);
         }
+        Collections.sort(suggestions);
         return suggestions;
     }
 

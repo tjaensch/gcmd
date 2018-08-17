@@ -109,23 +109,8 @@ public class GcmdService<similarKeywords> {
                     .collect(Collectors.toList());
         }
 
+        Collections.sort(similarKeywordsList);
         return similarKeywordsList;
-    }
-
-    public List<String> apply_keyword_algorithm(List<String> similarKeywords, Integer hierarchyLevel) throws IOException, SAXException {
-        List<String> suggestions = new ArrayList<String>();
-        for (String i : similarKeywords) {
-            try {
-                // shorten string according to hierarchy level and +3 to remove leading ' > '
-                i = i.substring(StringUtils.ordinalIndexOf(i, " > ", hierarchyLevel) + 3, i.length());
-            }
-            catch (IndexOutOfBoundsException e) {
-                continue;
-            }
-            suggestions.add(i);
-        }
-        Collections.sort(suggestions);
-        return suggestions;
     }
 
 
@@ -186,6 +171,14 @@ public class GcmdService<similarKeywords> {
         }
 
         return invalidKeywordsList;
+    }
+
+    public HashMap<String, ArrayList> get_suggestions_for_invalid_theme_keywords() throws XPathExpressionException, SAXException, IOException {
+        HashMap suggestionsForInvalidThemeKeywords = new HashMap<String, ArrayList>();
+        for (String keyword : get_invalid_theme_keywords()) {
+            suggestionsForInvalidThemeKeywords.put(keyword, get_similar_keywords(get_model_theme_keywords_list(), keyword));
+        }
+        return suggestionsForInvalidThemeKeywords;
     }
 
     // DATACENTER KEYWORDS

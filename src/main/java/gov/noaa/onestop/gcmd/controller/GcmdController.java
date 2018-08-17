@@ -56,12 +56,6 @@ public class GcmdController {
         return service.get_similar_keywords(service.get_model_instrument_keywords_list(), "Winds");
     }
 
-    @RequestMapping(value = "/apply_keyword_algorithm", produces = "application/json")
-    public List<String> apply_keyword_algorithm() throws Exception {
-        return service.apply_keyword_algorithm(service.get_similar_keywords(service.get_model_theme_keywords_list(),
-                "CUMULUS"),2);
-    }
-
     // THEME KEYWORDS
     @RequestMapping(value = "/show_theme_keywords", produces = "application/json")
     public List<String> show_theme_keywords() throws Exception {
@@ -76,6 +70,11 @@ public class GcmdController {
     @RequestMapping(value = "/show_invalid_theme_keywords", produces = "application/json")
     public List<String> show_invalid_theme_keywords() throws IOException, SAXException, XPathExpressionException {
         return service.get_invalid_theme_keywords();
+    }
+
+    @RequestMapping(value = "/get_suggestions_for_invalid_theme_keywords", produces = "application/json")
+    public HashMap<String, ArrayList> get_suggestions_for_invalid_theme_keywords() throws Exception {
+        return service.get_suggestions_for_invalid_theme_keywords();
     }
 
     // DATACENTER KEYWORDS

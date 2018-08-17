@@ -176,7 +176,7 @@ public class GcmdService<similarKeywords> {
     public HashMap<String, ArrayList> get_suggestions_for_invalid_theme_keywords() throws XPathExpressionException, SAXException, IOException {
         HashMap suggestionsForInvalidThemeKeywords = new HashMap<String, ArrayList>();
         for (String keyword : get_invalid_theme_keywords()) {
-            suggestionsForInvalidThemeKeywords.put(keyword, get_similar_keywords(get_model_theme_keywords_list(), keyword));
+            suggestionsForInvalidThemeKeywords.put("invalid theme keyword: " + keyword, "suggestion/s: " + get_similar_keywords(get_model_theme_keywords_list(), keyword));
         }
         return suggestionsForInvalidThemeKeywords;
     }

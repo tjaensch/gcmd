@@ -29,14 +29,18 @@ public class GcmdController {
     // Format http://localhost:8080/gcmd_keywords?url=https://data.nodc.noaa
     // .gov/nodc/archive/metadata/approved/iso/GHRSST-ABOM-L4HRfnd-AUS-RAMSSA_09km.xml
     @RequestMapping(value = "/gcmd_keywords", method = RequestMethod.GET, produces = "application/json")
-    public HashMap<String, ArrayList> get_url_value(@RequestParam("url") URL urlValue) throws IOException, SAXException, XPathExpressionException {
+    public List<HashMap<String, ArrayList>> get_url_value(@RequestParam("url") URL urlValue) throws IOException, SAXException, XPathExpressionException {
         URL xmlUrl = urlValue;
         xmlDocument = service.get_xml_document(xmlUrl);
         HashMap<String, ArrayList> allKeywords = service.get_all_keywords();
         HashMap<String, ArrayList> allInvalidKeywords = service.get_all_invalid_keywords();
-        allInvalidKeywords.forEach(allKeywords::putIfAbsent);
+        //allInvalidKeywords.forEach(allKeywords::putIfAbsent);
 
-        return allKeywords;
+        List<HashMap<String, ArrayList>> all = new ArrayList<HashMap<String, ArrayList>>();
+        all.add(allKeywords);
+        all.add(allInvalidKeywords);
+
+        return all;
     }
 
     // ALL KEYWORDS

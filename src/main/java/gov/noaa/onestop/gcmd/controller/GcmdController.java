@@ -37,6 +37,11 @@ public class GcmdController {
         all.add(service.get_all_keywords());
         all.add(service.get_all_invalid_keywords());
         all.add(service.get_suggestions_for_invalid_theme_keywords());
+        all.add(service.get_suggestions_for_invalid_datacenter_keywords());
+        all.add(service.get_suggestions_for_invalid_place_keywords());
+        all.add(service.get_suggestions_for_invalid_platform_keywords());
+        all.add(service.get_suggestions_for_invalid_instrument_keywords());
+        all.add(service.get_suggestions_for_invalid_project_keywords());
 
         return all;
     }

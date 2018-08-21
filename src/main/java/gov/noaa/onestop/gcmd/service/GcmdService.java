@@ -175,8 +175,12 @@ public class GcmdService<similarKeywords> {
 
     public HashMap<String, ArrayList> get_suggestions_for_invalid_theme_keywords() throws XPathExpressionException, SAXException, IOException {
         HashMap suggestionsForInvalidThemeKeywords = new HashMap<String, ArrayList>();
-        for (String keyword : get_invalid_theme_keywords()) {
-            suggestionsForInvalidThemeKeywords.put("invalid theme keyword: " + keyword, "suggestion/s: " + get_similar_keywords(get_model_theme_keywords_list(), keyword));
+        if (get_invalid_theme_keywords().get(0).contains("no invalid")) {
+            suggestionsForInvalidThemeKeywords.put("theme keyword suggestions", "N/A");
+        } else {
+            for (String keyword : get_invalid_theme_keywords()) {
+                suggestionsForInvalidThemeKeywords.put("invalid theme keyword: " + keyword, "suggestion/s: " + get_similar_keywords(get_model_theme_keywords_list(), keyword));
+            }
         }
         return suggestionsForInvalidThemeKeywords;
     }
@@ -259,6 +263,18 @@ public class GcmdService<similarKeywords> {
         return invalidKeywordsList;
     }
 
+    public HashMap<String, ArrayList> get_suggestions_for_invalid_datacenter_keywords() throws XPathExpressionException, SAXException, IOException {
+        HashMap suggestionsForInvalidDatacenterKeywords = new HashMap<String, ArrayList>();
+        if (get_invalid_datacenter_keywords().get(0).contains("no invalid")) {
+            suggestionsForInvalidDatacenterKeywords.put("datacenter keyword suggestions", "N/A");
+        } else {
+            for (String keyword : get_invalid_datacenter_keywords()) {
+                suggestionsForInvalidDatacenterKeywords.put("invalid datacenter keyword: " + keyword, "suggestion/s: " + get_similar_keywords(get_model_datacenter_keywords_list(), keyword));
+            }
+        }
+        return suggestionsForInvalidDatacenterKeywords;
+    }
+
     // PLACE KEYWORDS
     public List<String> get_place_keywords(Document xmlDocument) throws IOException, XPathExpressionException {
         XPath xPath = XPathFactory.newInstance().newXPath();
@@ -316,6 +332,18 @@ public class GcmdService<similarKeywords> {
         }
 
         return invalidKeywordsList;
+    }
+
+    public HashMap<String, ArrayList> get_suggestions_for_invalid_place_keywords() throws XPathExpressionException, SAXException, IOException {
+        HashMap suggestionsForInvalidPlaceKeywords = new HashMap<String, ArrayList>();
+        if (get_invalid_place_keywords().get(0).contains("no invalid")) {
+            suggestionsForInvalidPlaceKeywords.put("place keyword suggestions", "N/A");
+        } else {
+            for (String keyword : get_invalid_place_keywords()) {
+                suggestionsForInvalidPlaceKeywords.put("invalid place keyword: " + keyword, "suggestion/s: " + get_similar_keywords(get_model_place_keywords_list(), keyword));
+            }
+        }
+        return suggestionsForInvalidPlaceKeywords;
     }
 
     // PLATFORM KEYWORDS
@@ -377,6 +405,18 @@ public class GcmdService<similarKeywords> {
         return invalidKeywordsList;
     }
 
+    public HashMap<String, ArrayList> get_suggestions_for_invalid_platform_keywords() throws XPathExpressionException, SAXException, IOException {
+        HashMap suggestionsForInvalidPlatformKeywords = new HashMap<String, ArrayList>();
+        if (get_invalid_platform_keywords().get(0).contains("no invalid")) {
+            suggestionsForInvalidPlatformKeywords.put("platform keyword suggestions", "N/A");
+        } else {
+            for (String keyword : get_invalid_platform_keywords()) {
+                suggestionsForInvalidPlatformKeywords.put("invalid platform keyword: " + keyword, "suggestion/s: " + get_similar_keywords(get_model_platform_keywords_list(), keyword));
+            }
+        }
+        return suggestionsForInvalidPlatformKeywords;
+    }
+
     // INSTRUMENT KEYWORDS
     public List<String> get_instrument_keywords(Document xmlDocument) throws IOException, XPathExpressionException {
         XPath xPath = XPathFactory.newInstance().newXPath();
@@ -436,6 +476,18 @@ public class GcmdService<similarKeywords> {
         return invalidKeywordsList;
     }
 
+    public HashMap<String, ArrayList> get_suggestions_for_invalid_instrument_keywords() throws XPathExpressionException, SAXException, IOException {
+        HashMap suggestionsForInvalidInstrumentKeywords = new HashMap<String, ArrayList>();
+        if (get_invalid_instrument_keywords().get(0).contains("no invalid")) {
+            suggestionsForInvalidInstrumentKeywords.put("instrument keyword suggestions", "N/A");
+        } else {
+            for (String keyword : get_invalid_instrument_keywords()) {
+                suggestionsForInvalidInstrumentKeywords.put("invalid instrument keyword: " + keyword, "suggestion/s: " + get_similar_keywords(get_model_instrument_keywords_list(), keyword));
+            }
+        }
+        return suggestionsForInvalidInstrumentKeywords;
+    }
+
     // PROJECT KEYWORDS
     public List<String> get_project_keywords(Document xmlDocument) throws IOException, XPathExpressionException {
         XPath xPath = XPathFactory.newInstance().newXPath();
@@ -493,5 +545,17 @@ public class GcmdService<similarKeywords> {
         }
 
         return invalidKeywordsList;
+    }
+
+    public HashMap<String, ArrayList> get_suggestions_for_invalid_project_keywords() throws XPathExpressionException, SAXException, IOException {
+        HashMap suggestionsForInvalidProjectKeywords = new HashMap<String, ArrayList>();
+        if (get_invalid_project_keywords().get(0).contains("no invalid")) {
+            suggestionsForInvalidProjectKeywords.put("project keyword suggestions", "N/A");
+        } else {
+            for (String keyword : get_invalid_project_keywords()) {
+                suggestionsForInvalidProjectKeywords.put("invalid project keyword: " + keyword, "suggestion/s: " + get_similar_keywords(get_model_project_keywords_list(), keyword));
+            }
+        }
+        return suggestionsForInvalidProjectKeywords;
     }
 }

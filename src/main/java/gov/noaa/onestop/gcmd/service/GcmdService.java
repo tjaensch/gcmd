@@ -85,6 +85,15 @@ public class GcmdService<similarKeywords> {
                 .filter(str -> str.contains(lastSegment.toUpperCase()))
                 .collect(Collectors.toList());
 
+        // in no matches with the above method try first half of lastSegment keyword string
+        if (similarKeywordsList == null || similarKeywordsList.isEmpty()) {
+            String keywordSubstring = lastSegment.substring(0, lastSegment.length()/2);
+            similarKeywordsList = modelKeywordsList.stream()
+                    .filter(str -> str.contains(keywordSubstring.toUpperCase()))
+                    .collect(Collectors.toList());
+        }
+
+
         // in no matches with the above method try first half of keyword string
         if (similarKeywordsList == null || similarKeywordsList.isEmpty()) {
             String keywordSubstring = keyword.substring(0, keyword.length()/2);

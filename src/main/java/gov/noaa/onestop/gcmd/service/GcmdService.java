@@ -20,10 +20,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -85,7 +82,7 @@ public class GcmdService<similarKeywords> {
                 .filter(str -> str.contains(lastSegment.toUpperCase()))
                 .collect(Collectors.toList());
 
-        // in no matches with the above method try first half of lastSegment keyword string
+        // in no matches with the above method try first half of lastSegment of keyword string
         if (similarKeywordsList == null || similarKeywordsList.isEmpty()) {
             String keywordSubstring = lastSegment.substring(0, lastSegment.length()/2);
             similarKeywordsList = modelKeywordsList.stream()
@@ -119,6 +116,8 @@ public class GcmdService<similarKeywords> {
         }
 
         Collections.sort(similarKeywordsList);
+        // limit max size of similar keywords to 10
+        similarKeywordsList = similarKeywordsList.stream().limit(10).collect(Collectors.toList());
         return similarKeywordsList;
     }
 
@@ -137,6 +136,10 @@ public class GcmdService<similarKeywords> {
                 .mapToObj(nodeList::item)
                 .map(n -> n.getTextContent().replace("\n", "").trim().replaceAll(" +", " "))
                 .collect(Collectors.toList());
+
+        if (themeKeywords != null && themeKeywords.isEmpty()) {
+            themeKeywords.add("no GCMD Science Keywords found");
+        }
 
         return themeKeywords;
     }
@@ -228,6 +231,10 @@ public class GcmdService<similarKeywords> {
         datacenterKeywords.addAll(datacenterKeywords1);
         datacenterKeywords.addAll(datacenterKeywords2);
 
+        if (datacenterKeywords != null && datacenterKeywords.isEmpty()) {
+            datacenterKeywords.add("no datacenter keywords found");
+        }
+
         return datacenterKeywords;
     }
 
@@ -298,6 +305,10 @@ public class GcmdService<similarKeywords> {
                 .mapToObj(nodeList::item)
                 .map(n -> n.getTextContent().replace("\n", "").trim().replaceAll(" +", " "))
                 .collect(Collectors.toList());
+
+        if (placeKeywords != null && placeKeywords.isEmpty()) {
+            placeKeywords.add("no place keywords found");
+        }
 
         return placeKeywords;
     }
@@ -370,6 +381,10 @@ public class GcmdService<similarKeywords> {
                 .map(n -> n.getTextContent().replace("\n", "").trim().replaceAll(" +", " "))
                 .collect(Collectors.toList());
 
+        if (platformKeywords != null && platformKeywords.isEmpty()) {
+            platformKeywords.add("no platform keywords found");
+        }
+
         return platformKeywords;
     }
 
@@ -441,6 +456,10 @@ public class GcmdService<similarKeywords> {
                 .map(n -> n.getTextContent().replace("\n", "").trim().replaceAll(" +", " "))
                 .collect(Collectors.toList());
 
+        if (instrumentKeywords != null && instrumentKeywords.isEmpty()) {
+            instrumentKeywords.add("no instrument keywords found");
+        }
+
         return instrumentKeywords;
     }
 
@@ -511,6 +530,10 @@ public class GcmdService<similarKeywords> {
                 .mapToObj(nodeList::item)
                 .map(n -> n.getTextContent().replace("\n", "").trim().replaceAll(" +", " "))
                 .collect(Collectors.toList());
+
+        if (projectKeywords != null && projectKeywords.isEmpty()) {
+            projectKeywords.add("no project keywords found");
+        }
 
         return projectKeywords;
     }

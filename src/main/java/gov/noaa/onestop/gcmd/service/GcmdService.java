@@ -170,28 +170,31 @@ public class GcmdService<similarKeywords> {
     public List<String> get_invalid_theme_keywords() throws IOException, SAXException, XPathExpressionException {
         List<String> modelThemeKeywordsList = get_model_theme_keywords_list();
         List<String> themeKeywordsList = get_theme_keywords(xmlDocument);
-        // check if file theme keywords are in modelThemeKeywordsList ignoring case
         ArrayList<String> invalidKeywordsList = new ArrayList<String>();
-        for (String keyword : themeKeywordsList) {
-            if (!modelThemeKeywordsList.contains(keyword.toUpperCase())) {
-                invalidKeywordsList.add(keyword);
+        if (themeKeywordsList.contains("no GCMD Theme keywords found")) {
+            invalidKeywordsList.add("no invalid GCMD Theme Keywords found");
+        } else {
+            // check if file theme keywords are in modelThemeKeywordsList ignoring case
+            for (String keyword : themeKeywordsList) {
+                if (!modelThemeKeywordsList.contains(keyword.toUpperCase())) {
+                    invalidKeywordsList.add(keyword);
+                }
+            }
+
+            if (invalidKeywordsList != null && invalidKeywordsList.isEmpty()) {
+                invalidKeywordsList.add("no invalid GCMD Theme Keywords found");
             }
         }
-
-        if (invalidKeywordsList != null && invalidKeywordsList.isEmpty()) {
-            invalidKeywordsList.add("no invalid GCMD Science Keywords found");
-        }
-
         return invalidKeywordsList;
     }
 
     public HashMap<String, ArrayList> get_suggestions_for_invalid_theme_keywords() throws XPathExpressionException, SAXException, IOException {
         HashMap suggestionsForInvalidThemeKeywords = new HashMap<String, ArrayList>();
-        if (get_invalid_theme_keywords().get(0).contains("no invalid")) {
-            suggestionsForInvalidThemeKeywords.put("theme keyword suggestions", "N/A");
+        if (get_invalid_theme_keywords().get(0).contains("no invalid") || get_invalid_theme_keywords().get(0).contains("found")) {
+            suggestionsForInvalidThemeKeywords.put("GCMD Theme keyword suggestions", "N/A");
         } else {
             for (String keyword : get_invalid_theme_keywords()) {
-                suggestionsForInvalidThemeKeywords.put("invalid theme keyword: " + keyword, "suggestion/s: " + get_similar_keywords(get_model_theme_keywords_list(), keyword));
+                suggestionsForInvalidThemeKeywords.put("invalid GCMD Theme keyword: " + keyword, "suggestion/s: " + get_similar_keywords(get_model_theme_keywords_list(), keyword));
             }
         }
         return suggestionsForInvalidThemeKeywords;
@@ -232,7 +235,7 @@ public class GcmdService<similarKeywords> {
         datacenterKeywords.addAll(datacenterKeywords2);
 
         if (datacenterKeywords != null && datacenterKeywords.isEmpty()) {
-            datacenterKeywords.add("no datacenter keywords found");
+            datacenterKeywords.add("no GCMD Provider keywords found");
         }
 
         return datacenterKeywords;
@@ -264,28 +267,31 @@ public class GcmdService<similarKeywords> {
     public List<String> get_invalid_datacenter_keywords() throws IOException, SAXException, XPathExpressionException {
         List<String> modelDatacenterKeywordsList = get_model_datacenter_keywords_list();
         List<String> datacenterKeywordsList = get_datacenter_keywords(xmlDocument);
-        // check if file datacenter keywords are in modelDatacenterKeywordsList ignoring case
         ArrayList<String> invalidKeywordsList = new ArrayList<String>();
-        for (String keyword : datacenterKeywordsList) {
-            if (!modelDatacenterKeywordsList.contains(keyword.toUpperCase())) {
-                invalidKeywordsList.add(keyword);
+        if (datacenterKeywordsList.contains("no GCMD Datacenter keywords found")) {
+            invalidKeywordsList.add("no invalid GCMD Datacenter Keywords found");
+        } else {
+            // check if file datacenter keywords are in modelDatacenterKeywordsList ignoring case
+            for (String keyword : datacenterKeywordsList) {
+                if (!modelDatacenterKeywordsList.contains(keyword.toUpperCase())) {
+                    invalidKeywordsList.add(keyword);
+                }
+            }
+
+            if (invalidKeywordsList != null && invalidKeywordsList.isEmpty()) {
+                invalidKeywordsList.add("no invalid GCMD Datacenter Keywords found");
             }
         }
-
-        if (invalidKeywordsList != null && invalidKeywordsList.isEmpty()) {
-            invalidKeywordsList.add("no invalid GCMD Provider Keywords found");
-        }
-
         return invalidKeywordsList;
     }
 
     public HashMap<String, ArrayList> get_suggestions_for_invalid_datacenter_keywords() throws XPathExpressionException, SAXException, IOException {
         HashMap suggestionsForInvalidDatacenterKeywords = new HashMap<String, ArrayList>();
-        if (get_invalid_datacenter_keywords().get(0).contains("no invalid")) {
-            suggestionsForInvalidDatacenterKeywords.put("datacenter keyword suggestions", "N/A");
+        if (get_invalid_datacenter_keywords().get(0).contains("no invalid") || get_invalid_datacenter_keywords().get(0).contains("found")) {
+            suggestionsForInvalidDatacenterKeywords.put("GCMD Datacenter keyword suggestions", "N/A");
         } else {
             for (String keyword : get_invalid_datacenter_keywords()) {
-                suggestionsForInvalidDatacenterKeywords.put("invalid datacenter keyword: " + keyword, "suggestion/s: " + get_similar_keywords(get_model_datacenter_keywords_list(), keyword));
+                suggestionsForInvalidDatacenterKeywords.put("invalid GCMD Datacenter keyword: " + keyword, "suggestion/s: " + get_similar_keywords(get_model_datacenter_keywords_list(), keyword));
             }
         }
         return suggestionsForInvalidDatacenterKeywords;
@@ -307,7 +313,7 @@ public class GcmdService<similarKeywords> {
                 .collect(Collectors.toList());
 
         if (placeKeywords != null && placeKeywords.isEmpty()) {
-            placeKeywords.add("no place keywords found");
+            placeKeywords.add("no GCMD Location keywords found");
         }
 
         return placeKeywords;
@@ -339,28 +345,31 @@ public class GcmdService<similarKeywords> {
     public List<String> get_invalid_place_keywords() throws IOException, SAXException, XPathExpressionException {
         List<String> modelPlaceKeywordsList = get_model_place_keywords_list();
         List<String> placeKeywordsList = get_place_keywords(xmlDocument);
-        // check if file place keywords are in modelPlaceKeywordsList ignoring case
         ArrayList<String> invalidKeywordsList = new ArrayList<String>();
-        for (String keyword : placeKeywordsList) {
-            if (!modelPlaceKeywordsList.contains(keyword.toUpperCase())) {
-                invalidKeywordsList.add(keyword);
+        if (placeKeywordsList.contains("no GCMD Place keywords found")) {
+            invalidKeywordsList.add("no invalid GCMD Place Keywords found");
+        } else {
+            // check if file place keywords are in modelPlaceKeywordsList ignoring case
+            for (String keyword : placeKeywordsList) {
+                if (!modelPlaceKeywordsList.contains(keyword.toUpperCase())) {
+                    invalidKeywordsList.add(keyword);
+                }
+            }
+
+            if (invalidKeywordsList != null && invalidKeywordsList.isEmpty()) {
+                invalidKeywordsList.add("no invalid GCMD Place Keywords found");
             }
         }
-
-        if (invalidKeywordsList != null && invalidKeywordsList.isEmpty()) {
-            invalidKeywordsList.add("no invalid GCMD Location Keywords found");
-        }
-
         return invalidKeywordsList;
     }
 
     public HashMap<String, ArrayList> get_suggestions_for_invalid_place_keywords() throws XPathExpressionException, SAXException, IOException {
         HashMap suggestionsForInvalidPlaceKeywords = new HashMap<String, ArrayList>();
-        if (get_invalid_place_keywords().get(0).contains("no invalid")) {
-            suggestionsForInvalidPlaceKeywords.put("place keyword suggestions", "N/A");
+        if (get_invalid_place_keywords().get(0).contains("no invalid") || get_invalid_place_keywords().get(0).contains("found")) {
+            suggestionsForInvalidPlaceKeywords.put("GCMD Place keyword suggestions", "N/A");
         } else {
             for (String keyword : get_invalid_place_keywords()) {
-                suggestionsForInvalidPlaceKeywords.put("invalid place keyword: " + keyword, "suggestion/s: " + get_similar_keywords(get_model_place_keywords_list(), keyword));
+                suggestionsForInvalidPlaceKeywords.put("invalid GCMD Place keyword: " + keyword, "suggestion/s: " + get_similar_keywords(get_model_place_keywords_list(), keyword));
             }
         }
         return suggestionsForInvalidPlaceKeywords;
@@ -382,7 +391,7 @@ public class GcmdService<similarKeywords> {
                 .collect(Collectors.toList());
 
         if (platformKeywords != null && platformKeywords.isEmpty()) {
-            platformKeywords.add("no platform keywords found");
+            platformKeywords.add("no GCMD Platform keywords found");
         }
 
         return platformKeywords;
@@ -414,28 +423,31 @@ public class GcmdService<similarKeywords> {
     public List<String> get_invalid_platform_keywords() throws IOException, SAXException, XPathExpressionException {
         List<String> modelPlatformKeywordsList = get_model_platform_keywords_list();
         List<String> platformKeywordsList = get_platform_keywords(xmlDocument);
-        // check if file platform keywords are in modelPlatformKeywordsList ignoring case
         ArrayList<String> invalidKeywordsList = new ArrayList<String>();
-        for (String keyword : platformKeywordsList) {
-            if (!modelPlatformKeywordsList.contains(keyword.toUpperCase())) {
-                invalidKeywordsList.add(keyword);
+        if (platformKeywordsList.contains("no GCMD Platform keywords found")) {
+            invalidKeywordsList.add("no invalid GCMD Platform Keywords found");
+        } else {
+            // check if file platform keywords are in modelPlatformKeywordsList ignoring case
+            for (String keyword : platformKeywordsList) {
+                if (!modelPlatformKeywordsList.contains(keyword.toUpperCase())) {
+                    invalidKeywordsList.add(keyword);
+                }
+            }
+
+            if (invalidKeywordsList != null && invalidKeywordsList.isEmpty()) {
+                invalidKeywordsList.add("no invalid GCMD Platform Keywords found");
             }
         }
-
-        if (invalidKeywordsList != null && invalidKeywordsList.isEmpty()) {
-            invalidKeywordsList.add("no invalid GCMD Platform Keywords found");
-        }
-
         return invalidKeywordsList;
     }
 
     public HashMap<String, ArrayList> get_suggestions_for_invalid_platform_keywords() throws XPathExpressionException, SAXException, IOException {
         HashMap suggestionsForInvalidPlatformKeywords = new HashMap<String, ArrayList>();
-        if (get_invalid_platform_keywords().get(0).contains("no invalid")) {
-            suggestionsForInvalidPlatformKeywords.put("platform keyword suggestions", "N/A");
+        if (get_invalid_platform_keywords().get(0).contains("no invalid") || get_invalid_platform_keywords().get(0).contains("found")) {
+            suggestionsForInvalidPlatformKeywords.put("GCMD Platform keyword suggestions", "N/A");
         } else {
             for (String keyword : get_invalid_platform_keywords()) {
-                suggestionsForInvalidPlatformKeywords.put("invalid platform keyword: " + keyword, "suggestion/s: " + get_similar_keywords(get_model_platform_keywords_list(), keyword));
+                suggestionsForInvalidPlatformKeywords.put("invalid GCMD Platform keyword: " + keyword, "suggestion/s: " + get_similar_keywords(get_model_platform_keywords_list(), keyword));
             }
         }
         return suggestionsForInvalidPlatformKeywords;
@@ -457,7 +469,7 @@ public class GcmdService<similarKeywords> {
                 .collect(Collectors.toList());
 
         if (instrumentKeywords != null && instrumentKeywords.isEmpty()) {
-            instrumentKeywords.add("no instrument keywords found");
+            instrumentKeywords.add("no GCMD Instrument keywords found");
         }
 
         return instrumentKeywords;
@@ -489,28 +501,31 @@ public class GcmdService<similarKeywords> {
     public List<String> get_invalid_instrument_keywords() throws IOException, SAXException, XPathExpressionException {
         List<String> modelInstrumentKeywordsList = get_model_instrument_keywords_list();
         List<String> instrumentKeywordsList = get_instrument_keywords(xmlDocument);
-        // check if file instrument keywords are in modelInstrumentKeywordsList ignoring case
         ArrayList<String> invalidKeywordsList = new ArrayList<String>();
-        for (String keyword : instrumentKeywordsList) {
-            if (!modelInstrumentKeywordsList.contains(keyword.toUpperCase())) {
-                invalidKeywordsList.add(keyword);
+        if (instrumentKeywordsList.contains("no GCMD Instrument keywords found")) {
+            invalidKeywordsList.add("no invalid GCMD Instrument Keywords found");
+        } else {
+            // check if file instrument keywords are in modelInstrumentKeywordsList ignoring case
+            for (String keyword : instrumentKeywordsList) {
+                if (!modelInstrumentKeywordsList.contains(keyword.toUpperCase())) {
+                    invalidKeywordsList.add(keyword);
+                }
+            }
+
+            if (invalidKeywordsList != null && invalidKeywordsList.isEmpty()) {
+                invalidKeywordsList.add("no invalid GCMD Instrument Keywords found");
             }
         }
-
-        if (invalidKeywordsList != null && invalidKeywordsList.isEmpty()) {
-            invalidKeywordsList.add("no invalid GCMD Instrument Keywords found");
-        }
-
         return invalidKeywordsList;
     }
 
     public HashMap<String, ArrayList> get_suggestions_for_invalid_instrument_keywords() throws XPathExpressionException, SAXException, IOException {
         HashMap suggestionsForInvalidInstrumentKeywords = new HashMap<String, ArrayList>();
-        if (get_invalid_instrument_keywords().get(0).contains("no invalid")) {
-            suggestionsForInvalidInstrumentKeywords.put("instrument keyword suggestions", "N/A");
+        if (get_invalid_instrument_keywords().get(0).contains("no invalid") || get_invalid_instrument_keywords().get(0).contains("found")) {
+            suggestionsForInvalidInstrumentKeywords.put("GCMD Instrument keyword suggestions", "N/A");
         } else {
             for (String keyword : get_invalid_instrument_keywords()) {
-                suggestionsForInvalidInstrumentKeywords.put("invalid instrument keyword: " + keyword, "suggestion/s: " + get_similar_keywords(get_model_instrument_keywords_list(), keyword));
+                suggestionsForInvalidInstrumentKeywords.put("invalid GCMD Instrument keyword: " + keyword, "suggestion/s: " + get_similar_keywords(get_model_instrument_keywords_list(), keyword));
             }
         }
         return suggestionsForInvalidInstrumentKeywords;
@@ -532,7 +547,7 @@ public class GcmdService<similarKeywords> {
                 .collect(Collectors.toList());
 
         if (projectKeywords != null && projectKeywords.isEmpty()) {
-            projectKeywords.add("no project keywords found");
+            projectKeywords.add("no GCMD Project keywords found");
         }
 
         return projectKeywords;
@@ -564,28 +579,31 @@ public class GcmdService<similarKeywords> {
     public List<String> get_invalid_project_keywords() throws IOException, SAXException, XPathExpressionException {
         List<String> modelProjectKeywordsList = get_model_project_keywords_list();
         List<String> projectKeywordsList = get_project_keywords(xmlDocument);
-        // check if file project keywords are in modelProjectKeywordsList ignoring case
         ArrayList<String> invalidKeywordsList = new ArrayList<String>();
-        for (String keyword : projectKeywordsList) {
-            if (!modelProjectKeywordsList.contains(keyword.toUpperCase())) {
-                invalidKeywordsList.add(keyword);
+        if (projectKeywordsList.contains("no GCMD Project keywords found")) {
+            invalidKeywordsList.add("no invalid GCMD Project Keywords found");
+        } else {
+            // check if file project keywords are in modelProjectKeywordsList ignoring case
+            for (String keyword : projectKeywordsList) {
+                if (!modelProjectKeywordsList.contains(keyword.toUpperCase())) {
+                    invalidKeywordsList.add(keyword);
+                }
+            }
+
+            if (invalidKeywordsList != null && invalidKeywordsList.isEmpty()) {
+                invalidKeywordsList.add("no invalid GCMD Project Keywords found");
             }
         }
-
-        if (invalidKeywordsList != null && invalidKeywordsList.isEmpty()) {
-            invalidKeywordsList.add("no invalid GCMD Project Keywords found");
-        }
-
         return invalidKeywordsList;
     }
 
     public HashMap<String, ArrayList> get_suggestions_for_invalid_project_keywords() throws XPathExpressionException, SAXException, IOException {
         HashMap suggestionsForInvalidProjectKeywords = new HashMap<String, ArrayList>();
-        if (get_invalid_project_keywords().get(0).contains("no invalid")) {
-            suggestionsForInvalidProjectKeywords.put("project keyword suggestions", "N/A");
+        if (get_invalid_project_keywords().get(0).contains("no invalid") || get_invalid_project_keywords().get(0).contains("found")) {
+            suggestionsForInvalidProjectKeywords.put("GCMD Project keyword suggestions", "N/A");
         } else {
             for (String keyword : get_invalid_project_keywords()) {
-                suggestionsForInvalidProjectKeywords.put("invalid project keyword: " + keyword, "suggestion/s: " + get_similar_keywords(get_model_project_keywords_list(), keyword));
+                suggestionsForInvalidProjectKeywords.put("invalid GCMD Project keyword: " + keyword, "suggestion/s: " + get_similar_keywords(get_model_project_keywords_list(), keyword));
             }
         }
         return suggestionsForInvalidProjectKeywords;

@@ -100,6 +100,11 @@ public class GcmdController {
         return service.get_invalid_datacenter_keywords();
     }
 
+    @RequestMapping(value = "/get_suggestions_for_invalid_datacenter_keywords", produces = "application/json")
+    public HashMap<String, ArrayList> get_suggestions_for_invalid_datacenter_keywords() throws Exception {
+        return service.get_suggestions_for_invalid_datacenter_keywords();
+    }
+
     // PLACE KEYWORDS
     @RequestMapping(value = "/show_place_keywords", produces = "application/json")
     public List<String> show_place_keywords() throws IOException, XPathExpressionException {
@@ -114,6 +119,11 @@ public class GcmdController {
     @RequestMapping(value = "/show_invalid_place_keywords", produces = "application/json")
     public List<String> show_invalid_place_keywords() throws IOException, SAXException, XPathExpressionException {
         return service.get_invalid_place_keywords();
+    }
+
+    @RequestMapping(value = "/get_suggestions_for_invalid_place_keywords", produces = "application/json")
+    public HashMap<String, ArrayList> get_suggestions_for_invalid_place_keywords() throws Exception {
+        return service.get_suggestions_for_invalid_place_keywords();
     }
 
     // PLATFORM KEYWORDS
@@ -132,6 +142,11 @@ public class GcmdController {
         return service.get_invalid_platform_keywords();
     }
 
+    @RequestMapping(value = "/get_suggestions_for_invalid_platform_keywords", produces = "application/json")
+    public HashMap<String, ArrayList> get_suggestions_for_invalid_platform_keywords() throws Exception {
+        return service.get_suggestions_for_invalid_platform_keywords();
+    }
+
     // INSTRUMENT KEYWORDS
     @RequestMapping(value = "/show_instrument_keywords", produces = "application/json")
     public List<String> show_instrument_keywords() throws IOException, XPathExpressionException {
@@ -148,6 +163,11 @@ public class GcmdController {
         return service.get_invalid_instrument_keywords();
     }
 
+    @RequestMapping(value = "/get_suggestions_for_invalid_instrument_keywords", produces = "application/json")
+    public HashMap<String, ArrayList> get_suggestions_for_invalid_instrument_keywords() throws Exception {
+        return service.get_suggestions_for_invalid_instrument_keywords();
+    }
+
     // PROJECT KEYWORDS
     @RequestMapping(value = "/show_project_keywords", produces = "application/json")
     public List<String> show_project_keywords() throws IOException, XPathExpressionException {
@@ -162,6 +182,11 @@ public class GcmdController {
     @RequestMapping(value = "/show_invalid_project_keywords", produces = "application/json")
     public List<String> show_invalid_project_keywords() throws IOException, SAXException, XPathExpressionException {
         return service.get_invalid_project_keywords();
+    }
+
+    @RequestMapping(value = "/get_suggestions_for_invalid_project_keywords", produces = "application/json")
+    public HashMap<String, ArrayList> get_suggestions_for_invalid_project_keywords() throws Exception {
+        return service.get_suggestions_for_invalid_project_keywords();
     }
 
 }

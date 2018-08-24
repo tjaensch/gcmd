@@ -14,9 +14,11 @@ apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
+apply plugin: 'war'
 
 group = 'gov.noaa.onestop'
 version = '0.0.1-SNAPSHOT'
+status = 'Development'
 sourceCompatibility = 1.8
 
 repositories {

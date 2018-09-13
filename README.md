@@ -12,7 +12,7 @@ In project folder, run `java -jar ./build/libs/gcmd-0.0.1-SNAPSHOT.war`
 ## Access API
 Make sure to build the program and run it, then pull up e.g. `http://localhost:8080/gcmd_keywords?url=https://www.ngdc.noaa.gov/metadata/published/NOAA/NESDIS/NGDC/Collection/iso/xml/Marine_Geology.xml` to get a summary assessment of that file's GCMD keywords in JSON format. 
 
-#OR
+# OR
 
 ## Run application in a Docker container (Requirement: working Docker installation)
 1. Build .war file as described above

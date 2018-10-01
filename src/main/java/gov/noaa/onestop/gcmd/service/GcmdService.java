@@ -134,7 +134,7 @@ public class GcmdService<similarKeywords> {
 
         List<String> themeKeywords = IntStream.range(0, nodeList.getLength())
                 .mapToObj(nodeList::item)
-                .map(n -> n.getTextContent().replace("\n", "").trim().replaceAll(" +", " "))
+                .map(n -> n.getTextContent().replace("\t", " ").replace("\n", "").trim().replaceAll(" +", " "))
                 .collect(Collectors.toList());
 
         if (themeKeywords != null && themeKeywords.isEmpty()) {
@@ -213,7 +213,7 @@ public class GcmdService<similarKeywords> {
 
         List<String> datacenterKeywords1 = IntStream.range(0, nodeList.getLength())
                 .mapToObj(nodeList::item)
-                .map(n -> n.getTextContent().replace("\n", "").trim().replaceAll(" +", " "))
+                .map(n -> n.getTextContent().replace("\t", " ").replace("\n", "").trim().replaceAll(" +", " "))
                 .collect(Collectors.toList());
 
         // codeListValue 'dataCenter'
@@ -309,7 +309,7 @@ public class GcmdService<similarKeywords> {
 
         List<String> placeKeywords = IntStream.range(0, nodeList.getLength())
                 .mapToObj(nodeList::item)
-                .map(n -> n.getTextContent().replace("\n", "").trim().replaceAll(" +", " "))
+                .map(n -> n.getTextContent().replace("\t", " ").replace("\n", "").trim().replaceAll(" +", " "))
                 .collect(Collectors.toList());
 
         if (placeKeywords != null && placeKeywords.isEmpty()) {
@@ -387,7 +387,7 @@ public class GcmdService<similarKeywords> {
 
         List<String> platformKeywords = IntStream.range(0, nodeList.getLength())
                 .mapToObj(nodeList::item)
-                .map(n -> n.getTextContent().replace("\n", "").trim().replaceAll(" +", " "))
+                .map(n -> n.getTextContent().replace("\t", " ").replace("\n", "").trim().replaceAll(" +", " "))
                 .collect(Collectors.toList());
 
         if (platformKeywords != null && platformKeywords.isEmpty()) {
@@ -465,7 +465,7 @@ public class GcmdService<similarKeywords> {
 
         List<String> instrumentKeywords = IntStream.range(0, nodeList.getLength())
                 .mapToObj(nodeList::item)
-                .map(n -> n.getTextContent().replace("\n", "").trim().replaceAll(" +", " "))
+                .map(n -> n.getTextContent().replace("\t", " ").replace("\n", "").trim().replaceAll(" +", " "))
                 .collect(Collectors.toList());
 
         if (instrumentKeywords != null && instrumentKeywords.isEmpty()) {
@@ -543,7 +543,7 @@ public class GcmdService<similarKeywords> {
 
         List<String> projectKeywords = IntStream.range(0, nodeList.getLength())
                 .mapToObj(nodeList::item)
-                .map(n -> n.getTextContent().replace("\n", "").trim().replaceAll(" +", " "))
+                .map(n -> n.getTextContent().replace("\t", " ").replace("\n", "").trim().replaceAll(" +", " "))
                 .collect(Collectors.toList());
 
         if (projectKeywords != null && projectKeywords.isEmpty()) {

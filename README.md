@@ -1,4 +1,5 @@
-# GCMD Keyword Checker Web API for ISO Metadata XML URLs
+# GCMD Keyword Checker Web API for ISO Metadata XML URLs*
+\* API depends on https://gcmdservices.gsfc.nasa.gov/static/kms/ so if that site is down the service is not working either
 
 ## Working test links for API on AWS Elastic Beanstalk 
 _best viewed with JSON pretty printer extension installed in browser_

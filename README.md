@@ -3,7 +3,6 @@
 
 ## Working test links for API on AWS Elastic Beanstalk 
 _best viewed with JSON pretty printer extension installed in browser_
-- http://gcmdtest-env.ej2s7tvq62.us-east-1.elasticbeanstalk.com/gcmd_keywords?url=https://www.ngdc.noaa.gov/metadata/published/NOAA/NESDIS/NGDC/Collection/iso/xml/Marine_Geology.xml
 - http://gcmdtest-env.ej2s7tvq62.us-east-1.elasticbeanstalk.com/gcmd_keywords?url=https://data.nodc.noaa.gov/nodc/archive/metadata/approved/iso/GHRSST-EUR-L4HRfnd-GLOB-ODYSSEA.xml
 - http://gcmdtest-env.ej2s7tvq62.us-east-1.elasticbeanstalk.com/gcmd_keywords?url=https://www1.ncdc.noaa.gov/pub/data/metadata/published/geoportal/iso/xml/noaa-cave-23330.xml
 

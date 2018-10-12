@@ -122,7 +122,7 @@ public class GcmdService<similarKeywords> {
         return similarKeywordsList;
     }
 
-    public Object get_similar_keywords_cosine_similarity_method(List<String> modelKeywordsList, String keyword) {
+    public Map get_similar_keywords_cosine_similarity_method(List<String> modelKeywordsList, String keyword) {
         HashMap similarKeywords = new HashMap();
         CosineSimilarity dist = new CosineSimilarity();
 

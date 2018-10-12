@@ -11,8 +11,9 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
+import java.util.Map;
 
-import static org.hamcrest.Matchers.containsInAnyOrder;
+import static org.hamcrest.Matchers.*;
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 import static org.hamcrest.core.IsCollectionContaining.hasItem;
 import static org.hamcrest.core.IsNot.not;
@@ -36,13 +37,23 @@ public class GcmdServiceTest {
 
     // SIMILAR KEYWORDS
     @Test
-    public void test_get_similar_keywords() throws IOException, SAXException {
+    public void test_get_similar_keywords_string_method() throws IOException, SAXException {
         List<String> resultsThemeKeywords = gcmdService.get_similar_keywords_string_method(gcmdService.get_model_theme_keywords_list(), "Earth Science > Land Surface > Topography > Topographical Relief");
         assertThat(resultsThemeKeywords, hasItem("EARTH SCIENCE > LAND SURFACE > TOPOGRAPHY > TERRAIN ELEVATION > TOPOGRAPHICAL RELIEF MAPS"));
         List<String> resultsProjectKeywords = gcmdService.get_similar_keywords_string_method(gcmdService.get_model_project_keywords_list(), "Onestop");
         assertThat(resultsProjectKeywords, hasItem("NOAA ONESTOP PROJECT"));
         List<String> resultsInstrumentKeywords = gcmdService.get_similar_keywords_string_method(gcmdService.get_model_instrument_keywords_list(), "Windsa");
         assertThat(resultsInstrumentKeywords, hasItem("WINDSAT"));
+    }
+
+    @Test
+    public void test_get_similar_keywords_cosine_similarity_method() throws IOException, SAXException {
+        Map<String, Integer> resultsThemeKeywords = gcmdService.get_similar_keywords_cosine_similarity_method(gcmdService.get_model_theme_keywords_list(), "Earth Science > Land Surface > Topography > Topographical Relief");
+        assertThat(resultsThemeKeywords, hasValue("EARTH SCIENCE > LAND SURFACE > TOPOGRAPHY > TERRAIN ELEVATION > TOPOGRAPHICAL RELIEF MAPS"));
+        Map<String, Integer> resultsProjectKeywords = gcmdService.get_similar_keywords_cosine_similarity_method(gcmdService.get_model_project_keywords_list(), "Onestop");
+        assertThat(resultsProjectKeywords, hasValue("NOAA ONESTOP PROJECT"));
+        Map<String, Integer> resultsInstrumentKeywords = gcmdService.get_similar_keywords_cosine_similarity_method(gcmdService.get_model_instrument_keywords_list(), "Windsa");
+        assertThat(resultsInstrumentKeywords, hasValue("WINDSAT"));
     }
 
     // THEME KEYWORDS

@@ -60,7 +60,7 @@ public class GcmdController {
     // SIMILAR KEYWORDS
     @RequestMapping(value = "/show_similar_keywords", produces = "application/json")
     public List<String> get_similar_keywords() throws Exception {
-        return service.get_similar_keywords(service.get_model_instrument_keywords_list(), "Winds");
+        return service.get_similar_keywords_string_method(service.get_model_instrument_keywords_list(), "Winds");
     }
 
     // THEME KEYWORDS

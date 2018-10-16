@@ -27,7 +27,7 @@ import java.util.stream.IntStream;
 
 
 @Component
-public class GcmdService<similarKeywords> {
+public class GcmdService {
 
     public Document xmlDocument;
 

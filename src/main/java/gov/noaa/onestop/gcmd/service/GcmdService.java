@@ -74,54 +74,6 @@ public class GcmdService<similarKeywords> {
     }
 
     // SIMILAR KEYWORDS
-    public List<String> get_similar_keywords_string_method(List<String> modelKeywordsList, String keyword) throws IOException, SAXException {
-        // get last segment after " > " of keyword if exists
-        String[] segments = keyword.split(" > ");
-        String lastSegment = segments[segments.length-1];
-
-        List<String> similarKeywordsList = modelKeywordsList.stream()
-                .filter(str -> str.contains(lastSegment.toUpperCase()))
-                .collect(Collectors.toList());
-
-        // in no matches with the above method try first half of lastSegment of keyword string
-        if (similarKeywordsList == null || similarKeywordsList.isEmpty()) {
-            String keywordSubstring = lastSegment.substring(0, lastSegment.length()/2);
-            similarKeywordsList = modelKeywordsList.stream()
-                    .filter(str -> str.contains(keywordSubstring.toUpperCase()))
-                    .collect(Collectors.toList());
-        }
-
-
-        // in no matches with the above method try first half of keyword string
-        if (similarKeywordsList == null || similarKeywordsList.isEmpty()) {
-            String keywordSubstring = keyword.substring(0, keyword.length()/2);
-            similarKeywordsList = modelKeywordsList.stream()
-                    .filter(str -> str.contains(keywordSubstring.toUpperCase()))
-                    .collect(Collectors.toList());
-            }
-
-        // if no matches with the above method try first third of keyword string
-        if (similarKeywordsList == null || similarKeywordsList.isEmpty()) {
-            String keywordSubstring = keyword.substring(0, keyword.length()/3);
-            similarKeywordsList = modelKeywordsList.stream()
-                    .filter(str -> str.contains(keywordSubstring.toUpperCase()))
-                    .collect(Collectors.toList());
-        }
-
-        // if no matches with the above method try latter fractions of keyword string
-        if (similarKeywordsList == null || similarKeywordsList.isEmpty()) {
-            String keywordSubstring = keyword.substring(keyword.length()*13/15, keyword.length());
-            similarKeywordsList = modelKeywordsList.stream()
-                    .filter(str -> str.contains(keywordSubstring.toUpperCase()))
-                    .collect(Collectors.toList());
-        }
-
-        Collections.sort(similarKeywordsList);
-        // limit max size of similar keywords to 10
-        similarKeywordsList = similarKeywordsList.stream().limit(10).collect(Collectors.toList());
-        return similarKeywordsList;
-    }
-
     public Map get_similar_keywords_cosine_similarity_method(List<String> modelKeywordsList, String keyword) {
         HashMap similarKeywords = new HashMap();
         CosineSimilarity dist = new CosineSimilarity();
@@ -335,7 +287,7 @@ public class GcmdService<similarKeywords> {
             suggestionsForInvalidDatacenterKeywords.put("GCMD Datacenter keyword suggestions", "N/A");
         } else {
             for (String keyword : get_invalid_datacenter_keywords()) {
-                suggestionsForInvalidDatacenterKeywords.put("invalid GCMD Datacenter keyword: " + keyword, "suggestions by best cosine similarity: " + get_similar_keywords_string_method(get_model_datacenter_keywords_list(), keyword));
+                suggestionsForInvalidDatacenterKeywords.put("invalid GCMD Datacenter keyword: " + keyword, "suggestions by best cosine similarity: " + get_similar_keywords_cosine_similarity_method(get_model_datacenter_keywords_list(), keyword));
             }
         }
         return suggestionsForInvalidDatacenterKeywords;
@@ -413,7 +365,7 @@ public class GcmdService<similarKeywords> {
             suggestionsForInvalidPlaceKeywords.put("GCMD Place keyword suggestions", "N/A");
         } else {
             for (String keyword : get_invalid_place_keywords()) {
-                suggestionsForInvalidPlaceKeywords.put("invalid GCMD Place keyword: " + keyword, "suggestions by best cosine similarity: " + get_similar_keywords_string_method(get_model_place_keywords_list(), keyword));
+                suggestionsForInvalidPlaceKeywords.put("invalid GCMD Place keyword: " + keyword, "suggestions by best cosine similarity: " + get_similar_keywords_cosine_similarity_method(get_model_place_keywords_list(), keyword));
             }
         }
         return suggestionsForInvalidPlaceKeywords;
@@ -491,7 +443,7 @@ public class GcmdService<similarKeywords> {
             suggestionsForInvalidPlatformKeywords.put("GCMD Platform keyword suggestions", "N/A");
         } else {
             for (String keyword : get_invalid_platform_keywords()) {
-                suggestionsForInvalidPlatformKeywords.put("invalid GCMD Platform keyword: " + keyword, "suggestions by best cosine similarity: " + get_similar_keywords_string_method(get_model_platform_keywords_list(), keyword));
+                suggestionsForInvalidPlatformKeywords.put("invalid GCMD Platform keyword: " + keyword, "suggestions by best cosine similarity: " + get_similar_keywords_cosine_similarity_method(get_model_platform_keywords_list(), keyword));
             }
         }
         return suggestionsForInvalidPlatformKeywords;
@@ -569,7 +521,7 @@ public class GcmdService<similarKeywords> {
             suggestionsForInvalidInstrumentKeywords.put("GCMD Instrument keyword suggestions", "N/A");
         } else {
             for (String keyword : get_invalid_instrument_keywords()) {
-                suggestionsForInvalidInstrumentKeywords.put("invalid GCMD Instrument keyword: " + keyword, "suggestions by best cosine similarity: " + get_similar_keywords_string_method(get_model_instrument_keywords_list(), keyword));
+                suggestionsForInvalidInstrumentKeywords.put("invalid GCMD Instrument keyword: " + keyword, "suggestions by best cosine similarity: " + get_similar_keywords_cosine_similarity_method(get_model_instrument_keywords_list(), keyword));
             }
         }
         return suggestionsForInvalidInstrumentKeywords;

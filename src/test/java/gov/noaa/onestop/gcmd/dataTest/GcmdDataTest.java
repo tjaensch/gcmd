@@ -10,8 +10,10 @@ import org.xml.sax.SAXException;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.Map;
 
+import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.hasValue;
 import static org.junit.Assert.assertThat;
 
@@ -38,5 +40,15 @@ public class GcmdDataTest {
         assertThat(resultsProjectKeywords, hasValue("NOAA ONESTOP PROJECT"));
         Map<String, Integer> resultsInstrumentKeywords = GcmdData.get_similar_keywords_cosine_similarity_method(gcmdService.get_model_instrument_keywords_list(), "Windsa");
         assertThat(resultsInstrumentKeywords, hasValue("WINDSAT"));
+    }
+
+    @Test
+    public void test_get_similar_keywords_string_method() throws IOException, SAXException {
+        List<String> resultsThemeKeywords = GcmdData.get_similar_keywords_string_method(gcmdService.get_model_theme_keywords_list(), "Earth Science > Land Surface > Topography > Topographical Relief");
+        assertThat(resultsThemeKeywords, hasItem("EARTH SCIENCE > LAND SURFACE > TOPOGRAPHY > TERRAIN ELEVATION > TOPOGRAPHICAL RELIEF MAPS"));
+        List<String> resultsProjectKeywords = GcmdData.get_similar_keywords_string_method(gcmdService.get_model_project_keywords_list(), "Onestop");
+        assertThat(resultsProjectKeywords, hasItem("NOAA ONESTOP PROJECT"));
+        List<String> resultsInstrumentKeywords = GcmdData.get_similar_keywords_string_method(gcmdService.get_model_instrument_keywords_list(), "Windsa");
+        assertThat(resultsInstrumentKeywords, hasItem("WINDSAT"));
     }
 }

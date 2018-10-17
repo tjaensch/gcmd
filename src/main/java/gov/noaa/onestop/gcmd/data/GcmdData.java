@@ -1,15 +1,43 @@
 package gov.noaa.onestop.gcmd.data;
 
+import gov.noaa.onestop.gcmd.service.GcmdService;
 import org.apache.commons.text.similarity.CosineSimilarity;
 import org.springframework.stereotype.Component;
+import org.w3c.dom.Document;
+import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 import java.util.*;
 import java.util.stream.Collectors;
 
 @Component
 public class GcmdData {
+
+    public static Document xmlDocument;
+
+    public static Document get_xml_document(GcmdService gcmdService, URL urlvalue) throws IOException, SAXException {
+        InputStream input = urlvalue.openStream();
+
+        DocumentBuilderFactory factory = null;
+        DocumentBuilder builder = null;
+
+        try {
+            factory = DocumentBuilderFactory.newInstance();
+            factory.setNamespaceAware(true);
+            builder = factory.newDocumentBuilder();
+        } catch (ParserConfigurationException e) {
+            e.printStackTrace();
+        }
+        xmlDocument = builder.parse(new InputSource(input));
+        return xmlDocument;
+    }
+
     // SIMILAR KEYWORDS
     public static Map get_similar_keywords_cosine_similarity_method(List<String> modelKeywordsList, String keyword) {
         HashMap similarKeywords = new HashMap();

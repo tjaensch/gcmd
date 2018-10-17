@@ -1,5 +1,6 @@
 package gov.noaa.onestop.gcmd.controller;
 
+import gov.noaa.onestop.gcmd.data.GcmdData;
 import gov.noaa.onestop.gcmd.service.GcmdService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,7 +29,7 @@ public class GcmdController {
     @RequestMapping(value = "/gcmd_keywords", method = RequestMethod.GET, produces = "application/json")
     public List<HashMap<String, ArrayList>> get_url_value(@RequestParam("url") URL urlValue) throws Exception {
         URL xmlUrl = urlValue;
-        xmlDocument = service.get_xml_document(xmlUrl);
+        xmlDocument = GcmdData.get_xml_document(service, xmlUrl);
         List<HashMap<String, ArrayList>> all = new ArrayList<HashMap<String, ArrayList>>();
 
         all.add(service.get_all_keywords());

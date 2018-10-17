@@ -6,22 +6,19 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
-import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -29,34 +26,15 @@ import java.util.stream.IntStream;
 @Component
 public class GcmdService {
 
-    public Document xmlDocument;
-
-    public Document get_xml_document(URL urlvalue) throws IOException, SAXException {
-        InputStream input = urlvalue.openStream();
-
-        DocumentBuilderFactory factory = null;
-        DocumentBuilder builder = null;
-
-        try {
-            factory = DocumentBuilderFactory.newInstance();
-            factory.setNamespaceAware(true);
-            builder = factory.newDocumentBuilder();
-        } catch (ParserConfigurationException e) {
-            e.printStackTrace();
-        }
-        xmlDocument = builder.parse(new InputSource(input));
-        return xmlDocument;
-    }
-
     // ALL KEYWORDS
     public HashMap<String, ArrayList> get_all_keywords() throws IOException, XPathExpressionException {
         HashMap allKeywords = new HashMap<String, ArrayList>();
-        allKeywords.put("theme_keywords", get_theme_keywords(xmlDocument));
-        allKeywords.put("datacenter_keywords", get_datacenter_keywords(xmlDocument));
-        allKeywords.put("place_keywords", get_place_keywords(xmlDocument));
-        allKeywords.put("platform_keywords", get_platform_keywords(xmlDocument));
-        allKeywords.put("instrument_keywords", get_instrument_keywords(xmlDocument));
-        allKeywords.put("project_keywords", get_project_keywords(xmlDocument));
+        allKeywords.put("theme_keywords", get_theme_keywords(GcmdData.xmlDocument));
+        allKeywords.put("datacenter_keywords", get_datacenter_keywords(GcmdData.xmlDocument));
+        allKeywords.put("place_keywords", get_place_keywords(GcmdData.xmlDocument));
+        allKeywords.put("platform_keywords", get_platform_keywords(GcmdData.xmlDocument));
+        allKeywords.put("instrument_keywords", get_instrument_keywords(GcmdData.xmlDocument));
+        allKeywords.put("project_keywords", get_project_keywords(GcmdData.xmlDocument));
 
         return allKeywords;
     }
@@ -121,7 +99,7 @@ public class GcmdService {
 
     public List<String> get_invalid_theme_keywords() throws IOException, SAXException, XPathExpressionException {
         List<String> modelThemeKeywordsList = get_model_theme_keywords_list();
-        List<String> themeKeywordsList = get_theme_keywords(xmlDocument);
+        List<String> themeKeywordsList = get_theme_keywords(GcmdData.xmlDocument);
         ArrayList<String> invalidKeywordsList = new ArrayList<String>();
         if (themeKeywordsList.contains("no GCMD Theme keywords found")) {
             invalidKeywordsList.add("no invalid GCMD Theme Keywords found");
@@ -218,7 +196,7 @@ public class GcmdService {
 
     public List<String> get_invalid_datacenter_keywords() throws IOException, SAXException, XPathExpressionException {
         List<String> modelDatacenterKeywordsList = get_model_datacenter_keywords_list();
-        List<String> datacenterKeywordsList = get_datacenter_keywords(xmlDocument);
+        List<String> datacenterKeywordsList = get_datacenter_keywords(GcmdData.xmlDocument);
         ArrayList<String> invalidKeywordsList = new ArrayList<String>();
         if (datacenterKeywordsList.contains("no GCMD Datacenter keywords found")) {
             invalidKeywordsList.add("no invalid GCMD Datacenter Keywords found");
@@ -296,7 +274,7 @@ public class GcmdService {
 
     public List<String> get_invalid_place_keywords() throws IOException, SAXException, XPathExpressionException {
         List<String> modelPlaceKeywordsList = get_model_place_keywords_list();
-        List<String> placeKeywordsList = get_place_keywords(xmlDocument);
+        List<String> placeKeywordsList = get_place_keywords(GcmdData.xmlDocument);
         ArrayList<String> invalidKeywordsList = new ArrayList<String>();
         if (placeKeywordsList.contains("no GCMD Place keywords found")) {
             invalidKeywordsList.add("no invalid GCMD Place Keywords found");
@@ -374,7 +352,7 @@ public class GcmdService {
 
     public List<String> get_invalid_platform_keywords() throws IOException, SAXException, XPathExpressionException {
         List<String> modelPlatformKeywordsList = get_model_platform_keywords_list();
-        List<String> platformKeywordsList = get_platform_keywords(xmlDocument);
+        List<String> platformKeywordsList = get_platform_keywords(GcmdData.xmlDocument);
         ArrayList<String> invalidKeywordsList = new ArrayList<String>();
         if (platformKeywordsList.contains("no GCMD Platform keywords found")) {
             invalidKeywordsList.add("no invalid GCMD Platform Keywords found");
@@ -452,7 +430,7 @@ public class GcmdService {
 
     public List<String> get_invalid_instrument_keywords() throws IOException, SAXException, XPathExpressionException {
         List<String> modelInstrumentKeywordsList = get_model_instrument_keywords_list();
-        List<String> instrumentKeywordsList = get_instrument_keywords(xmlDocument);
+        List<String> instrumentKeywordsList = get_instrument_keywords(GcmdData.xmlDocument);
         ArrayList<String> invalidKeywordsList = new ArrayList<String>();
         if (instrumentKeywordsList.contains("no GCMD Instrument keywords found")) {
             invalidKeywordsList.add("no invalid GCMD Instrument Keywords found");
@@ -530,7 +508,7 @@ public class GcmdService {
 
     public List<String> get_invalid_project_keywords() throws IOException, SAXException, XPathExpressionException {
         List<String> modelProjectKeywordsList = get_model_project_keywords_list();
-        List<String> projectKeywordsList = get_project_keywords(xmlDocument);
+        List<String> projectKeywordsList = get_project_keywords(GcmdData.xmlDocument);
         ArrayList<String> invalidKeywordsList = new ArrayList<String>();
         if (projectKeywordsList.contains("no GCMD Project keywords found")) {
             invalidKeywordsList.add("no invalid GCMD Project Keywords found");

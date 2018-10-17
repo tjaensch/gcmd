@@ -28,7 +28,7 @@ public class GcmdDataTest {
         ClassLoader classLoader = getClass().getClassLoader();
         File file = new File(classLoader.getResource("static/collection_test_files/GHRSST-ABOM-L4HRfnd-AUS-RAMSSA_09km.xml").getFile());
         testfile = file.toURI().toURL();
-        xmlDocument = (Document) gcmdService.get_xml_document(testfile);
+        xmlDocument = (Document) GcmdData.get_xml_document(gcmdService, testfile);
     }
 
     // SIMILAR KEYWORDS

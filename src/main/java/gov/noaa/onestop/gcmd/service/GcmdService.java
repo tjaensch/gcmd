@@ -1,8 +1,8 @@
 package gov.noaa.onestop.gcmd.service;
 
 import com.opencsv.CSVReader;
+import gov.noaa.onestop.gcmd.data.GcmdData;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.text.similarity.CosineSimilarity;
 import org.springframework.stereotype.Component;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
@@ -71,50 +71,6 @@ public class GcmdService {
         allInvalidKeywords.put("invalid_project_keywords", get_invalid_project_keywords());
 
         return allInvalidKeywords;
-    }
-
-    // SIMILAR KEYWORDS
-    public Map get_similar_keywords_cosine_similarity_method(List<String> modelKeywordsList, String keyword) {
-        HashMap similarKeywords = new HashMap();
-        CosineSimilarity dist = new CosineSimilarity();
-
-        Map<CharSequence, Integer> leftVector =
-                Arrays.stream(keyword.toLowerCase().split(""))
-                        .collect(Collectors.toMap(c -> c, c -> 1, Integer::sum));
-
-        for (String modelKeyword : modelKeywordsList) {
-            Map<CharSequence, Integer> rightVector =
-                    Arrays.stream(modelKeyword.toLowerCase().split(""))
-                            .collect(Collectors.toMap(c -> c, c -> 1, Integer::sum));
-
-            similarKeywords.put(dist.cosineSimilarity(leftVector,rightVector), modelKeyword);
-        }
-        // TreeMap to sort HashMap ascending
-        TreeMap sorted = new TreeMap();
-        sorted.putAll(similarKeywords);
-
-        // Two corresponding lists
-        ArrayList cosineDistances = new ArrayList();
-        ArrayList matchingKeywords = new ArrayList();
-        sorted.forEach((key, value) -> {
-            cosineDistances.add(key);
-            matchingKeywords.add(value);
-        });
-
-        // Reverse lists to get best matches first
-        Collections.reverse(cosineDistances);
-        Collections.reverse(matchingKeywords);
-
-        // Add best similar keywords and cosine similarity distances to HashMap
-        Map bestSimilarKeywords = new HashMap();
-        for (int i = 0; i < 10; i++)
-            bestSimilarKeywords.put(cosineDistances.get(i), matchingKeywords.get(i));
-
-        // Reverse order to get matches with highest cosine similarity first
-        Map<String, Integer> bestSimilarKeywordsReverseOrder = new TreeMap(Collections.reverseOrder());
-        bestSimilarKeywordsReverseOrder.putAll(bestSimilarKeywords);
-
-        return bestSimilarKeywordsReverseOrder;
     }
 
 
@@ -190,7 +146,7 @@ public class GcmdService {
             suggestionsForInvalidThemeKeywords.put("GCMD Theme keyword suggestions", "N/A");
         } else {
             for (String keyword : get_invalid_theme_keywords()) {
-                suggestionsForInvalidThemeKeywords.put("invalid GCMD Theme keyword: " + keyword, "suggestions by best cosine similarity: " + get_similar_keywords_cosine_similarity_method(get_model_theme_keywords_list(), keyword));
+                suggestionsForInvalidThemeKeywords.put("invalid GCMD Theme keyword: " + keyword, "suggestions by best cosine similarity: " + GcmdData.get_similar_keywords_cosine_similarity_method(get_model_theme_keywords_list(), keyword));
             }
         }
         return suggestionsForInvalidThemeKeywords;
@@ -287,7 +243,7 @@ public class GcmdService {
             suggestionsForInvalidDatacenterKeywords.put("GCMD Datacenter keyword suggestions", "N/A");
         } else {
             for (String keyword : get_invalid_datacenter_keywords()) {
-                suggestionsForInvalidDatacenterKeywords.put("invalid GCMD Datacenter keyword: " + keyword, "suggestions by best cosine similarity: " + get_similar_keywords_cosine_similarity_method(get_model_datacenter_keywords_list(), keyword));
+                suggestionsForInvalidDatacenterKeywords.put("invalid GCMD Datacenter keyword: " + keyword, "suggestions by best cosine similarity: " + GcmdData.get_similar_keywords_cosine_similarity_method(get_model_datacenter_keywords_list(), keyword));
             }
         }
         return suggestionsForInvalidDatacenterKeywords;
@@ -365,7 +321,7 @@ public class GcmdService {
             suggestionsForInvalidPlaceKeywords.put("GCMD Place keyword suggestions", "N/A");
         } else {
             for (String keyword : get_invalid_place_keywords()) {
-                suggestionsForInvalidPlaceKeywords.put("invalid GCMD Place keyword: " + keyword, "suggestions by best cosine similarity: " + get_similar_keywords_cosine_similarity_method(get_model_place_keywords_list(), keyword));
+                suggestionsForInvalidPlaceKeywords.put("invalid GCMD Place keyword: " + keyword, "suggestions by best cosine similarity: " + GcmdData.get_similar_keywords_cosine_similarity_method(get_model_place_keywords_list(), keyword));
             }
         }
         return suggestionsForInvalidPlaceKeywords;
@@ -443,7 +399,7 @@ public class GcmdService {
             suggestionsForInvalidPlatformKeywords.put("GCMD Platform keyword suggestions", "N/A");
         } else {
             for (String keyword : get_invalid_platform_keywords()) {
-                suggestionsForInvalidPlatformKeywords.put("invalid GCMD Platform keyword: " + keyword, "suggestions by best cosine similarity: " + get_similar_keywords_cosine_similarity_method(get_model_platform_keywords_list(), keyword));
+                suggestionsForInvalidPlatformKeywords.put("invalid GCMD Platform keyword: " + keyword, "suggestions by best cosine similarity: " + GcmdData.get_similar_keywords_cosine_similarity_method(get_model_platform_keywords_list(), keyword));
             }
         }
         return suggestionsForInvalidPlatformKeywords;
@@ -521,7 +477,7 @@ public class GcmdService {
             suggestionsForInvalidInstrumentKeywords.put("GCMD Instrument keyword suggestions", "N/A");
         } else {
             for (String keyword : get_invalid_instrument_keywords()) {
-                suggestionsForInvalidInstrumentKeywords.put("invalid GCMD Instrument keyword: " + keyword, "suggestions by best cosine similarity: " + get_similar_keywords_cosine_similarity_method(get_model_instrument_keywords_list(), keyword));
+                suggestionsForInvalidInstrumentKeywords.put("invalid GCMD Instrument keyword: " + keyword, "suggestions by best cosine similarity: " + GcmdData.get_similar_keywords_cosine_similarity_method(get_model_instrument_keywords_list(), keyword));
             }
         }
         return suggestionsForInvalidInstrumentKeywords;
@@ -599,7 +555,7 @@ public class GcmdService {
             suggestionsForInvalidProjectKeywords.put("GCMD Project keyword suggestions", "N/A");
         } else {
             for (String keyword : get_invalid_project_keywords()) {
-                suggestionsForInvalidProjectKeywords.put("invalid GCMD Project keyword: " + keyword, "suggestions by best cosine similarity: " + get_similar_keywords_cosine_similarity_method(get_model_project_keywords_list(), keyword));
+                suggestionsForInvalidProjectKeywords.put("invalid GCMD Project keyword: " + keyword, "suggestions by best cosine similarity: " + GcmdData.get_similar_keywords_cosine_similarity_method(get_model_project_keywords_list(), keyword));
             }
         }
         return suggestionsForInvalidProjectKeywords;

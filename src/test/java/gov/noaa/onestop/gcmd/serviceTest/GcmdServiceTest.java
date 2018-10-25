@@ -26,6 +26,15 @@ public class GcmdServiceTest {
     GcmdService gcmdService = new GcmdService();
     public URL testfile;
     public Document xmlDocument;
+    public List modelThemeKeywordsList;
+    public List modelDatacenterKeywordsList;
+    public List modelPlaceKeywordsList;
+    public List modelPlatformKeywordsList;
+    public List modelInstrumentKeywordsList;
+    public List modelProjectKeywordsList;
+
+    public GcmdServiceTest() throws IOException, SAXException {
+    }
 
     @Before
     public void setUp() throws IOException, SAXException {
@@ -33,6 +42,12 @@ public class GcmdServiceTest {
         File file = new File(classLoader.getResource("static/collection_test_files/GHRSST-ABOM-L4HRfnd-AUS-RAMSSA_09km.xml").getFile());
         testfile = file.toURI().toURL();
         xmlDocument = (Document) GcmdData.get_xml_document(gcmdService, testfile);
+        modelThemeKeywordsList = (List<String>) gcmdService.get_model_theme_keywords_list();
+        modelDatacenterKeywordsList = (List<String>) gcmdService.get_model_datacenter_keywords_list();
+        modelPlaceKeywordsList = (List<String>) gcmdService.get_model_place_keywords_list();
+        modelPlatformKeywordsList = (List<String>) gcmdService.get_model_platform_keywords_list();
+        modelInstrumentKeywordsList = (List<String>) gcmdService.get_model_instrument_keywords_list();
+        modelProjectKeywordsList = (List<String>) gcmdService.get_model_project_keywords_list();
     }
 
     // THEME KEYWORDS

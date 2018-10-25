@@ -3,6 +3,7 @@ package gov.noaa.onestop.gcmd.service;
 import com.opencsv.CSVReader;
 import gov.noaa.onestop.gcmd.data.GcmdData;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
@@ -25,6 +26,16 @@ import java.util.stream.IntStream;
 
 @Component
 public class GcmdService {
+
+    public List modelThemeKeywordsList = get_model_theme_keywords_list();
+    public List modelDatacenterKeywordsList = get_model_datacenter_keywords_list();
+    public List modelPlaceKeywordsList = get_model_place_keywords_list();
+    public List modelPlatformKeywordsList = get_model_platform_keywords_list();
+    public List modelInstrumentKeywordsList = get_model_instrument_keywords_list();
+    public List modelProjectKeywordsList = get_model_project_keywords_list();
+
+    public GcmdService() throws IOException, SAXException {
+    }
 
     // ALL KEYWORDS
     public HashMap<String, ArrayList> get_all_keywords() throws IOException, XPathExpressionException {
@@ -74,6 +85,7 @@ public class GcmdService {
         return themeKeywords;
     }
 
+    @Scheduled(cron = "*/5 * * * * ?")
     public List<String> get_model_theme_keywords_list() throws IOException, SAXException {
         URL url = new URL("https://gcmdservices.gsfc.nasa.gov/static/kms/sciencekeywords/sciencekeywords.csv");
         BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
@@ -98,7 +110,6 @@ public class GcmdService {
     }
 
     public List<String> get_invalid_theme_keywords() throws IOException, SAXException, XPathExpressionException {
-        List<String> modelThemeKeywordsList = get_model_theme_keywords_list();
         List<String> themeKeywordsList = get_theme_keywords(GcmdData.xmlDocument);
         ArrayList<String> invalidKeywordsList = new ArrayList<String>();
         if (themeKeywordsList.contains("no GCMD Theme keywords found")) {
@@ -171,6 +182,7 @@ public class GcmdService {
         return datacenterKeywords;
     }
 
+    @Scheduled(cron = "*/5 * * * * ?")
     public List<String> get_model_datacenter_keywords_list() throws IOException, SAXException {
         URL url = new URL("https://gcmdservices.gsfc.nasa.gov/static/kms/providers/providers.csv");
         BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
@@ -195,7 +207,6 @@ public class GcmdService {
     }
 
     public List<String> get_invalid_datacenter_keywords() throws IOException, SAXException, XPathExpressionException {
-        List<String> modelDatacenterKeywordsList = get_model_datacenter_keywords_list();
         List<String> datacenterKeywordsList = get_datacenter_keywords(GcmdData.xmlDocument);
         ArrayList<String> invalidKeywordsList = new ArrayList<String>();
         if (datacenterKeywordsList.contains("no GCMD Datacenter keywords found")) {
@@ -249,6 +260,7 @@ public class GcmdService {
         return placeKeywords;
     }
 
+    @Scheduled(cron = "*/5 * * * * ?")
     public List<String> get_model_place_keywords_list() throws IOException, SAXException {
         URL url = new URL("https://gcmdservices.gsfc.nasa.gov/static/kms/locations/locations.csv");
         BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
@@ -273,7 +285,6 @@ public class GcmdService {
     }
 
     public List<String> get_invalid_place_keywords() throws IOException, SAXException, XPathExpressionException {
-        List<String> modelPlaceKeywordsList = get_model_place_keywords_list();
         List<String> placeKeywordsList = get_place_keywords(GcmdData.xmlDocument);
         ArrayList<String> invalidKeywordsList = new ArrayList<String>();
         if (placeKeywordsList.contains("no GCMD Place keywords found")) {
@@ -327,6 +338,7 @@ public class GcmdService {
         return platformKeywords;
     }
 
+    @Scheduled(cron = "*/5 * * * * ?")
     public List<String> get_model_platform_keywords_list() throws IOException, SAXException {
         URL url = new URL("https://gcmdservices.gsfc.nasa.gov/static/kms/platforms/platforms.csv");
         BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
@@ -351,7 +363,6 @@ public class GcmdService {
     }
 
     public List<String> get_invalid_platform_keywords() throws IOException, SAXException, XPathExpressionException {
-        List<String> modelPlatformKeywordsList = get_model_platform_keywords_list();
         List<String> platformKeywordsList = get_platform_keywords(GcmdData.xmlDocument);
         ArrayList<String> invalidKeywordsList = new ArrayList<String>();
         if (platformKeywordsList.contains("no GCMD Platform keywords found")) {
@@ -405,6 +416,7 @@ public class GcmdService {
         return instrumentKeywords;
     }
 
+    @Scheduled(cron = "*/5 * * * * ?")
     public List<String> get_model_instrument_keywords_list() throws IOException, SAXException {
         URL url = new URL("https://gcmdservices.gsfc.nasa.gov/static/kms/instruments/instruments.csv");
         BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
@@ -429,7 +441,6 @@ public class GcmdService {
     }
 
     public List<String> get_invalid_instrument_keywords() throws IOException, SAXException, XPathExpressionException {
-        List<String> modelInstrumentKeywordsList = get_model_instrument_keywords_list();
         List<String> instrumentKeywordsList = get_instrument_keywords(GcmdData.xmlDocument);
         ArrayList<String> invalidKeywordsList = new ArrayList<String>();
         if (instrumentKeywordsList.contains("no GCMD Instrument keywords found")) {
@@ -483,6 +494,7 @@ public class GcmdService {
         return projectKeywords;
     }
 
+    @Scheduled(cron = "*/5 * * * * ?")
     public List<String> get_model_project_keywords_list() throws IOException, SAXException {
         URL url = new URL("https://gcmdservices.gsfc.nasa.gov/static/kms/projects/projects.csv");
         BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
@@ -507,7 +519,6 @@ public class GcmdService {
     }
 
     public List<String> get_invalid_project_keywords() throws IOException, SAXException, XPathExpressionException {
-        List<String> modelProjectKeywordsList = get_model_project_keywords_list();
         List<String> projectKeywordsList = get_project_keywords(GcmdData.xmlDocument);
         ArrayList<String> invalidKeywordsList = new ArrayList<String>();
         if (projectKeywordsList.contains("no GCMD Project keywords found")) {

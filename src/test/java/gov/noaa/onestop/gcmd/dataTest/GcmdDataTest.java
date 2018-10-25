@@ -23,6 +23,9 @@ public class GcmdDataTest {
     public URL testfile;
     public Document xmlDocument;
 
+    public GcmdDataTest() throws IOException, SAXException {
+    }
+
     @Before
     public void setUp() throws IOException, SAXException {
         ClassLoader classLoader = getClass().getClassLoader();

@@ -82,6 +82,7 @@ public class GcmdData {
         return bestSimilarKeywordsReverseOrder;
     }
 
+    @Deprecated
     public static List<String> get_similar_keywords_string_method(List<String> modelKeywordsList, String keyword) throws IOException, SAXException {
         // get last segment after " > " of keyword if exists
         String[] segments = keyword.split(" > ");

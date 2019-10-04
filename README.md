@@ -1,12 +1,6 @@
 # GCMD Keyword Checker Web API for ISO Metadata XML URLs*
 \* API depends on https://gcmdservices.gsfc.nasa.gov/static/kms/ so if that site is down the service is not working either
 
-## Working test links for API on AWS Elastic Beanstalk 
-_best viewed with JSON pretty printer extension installed in browser_
-- http://gcmdtest-env.ej2s7tvq62.us-east-1.elasticbeanstalk.com/gcmd_keywords?url=https://www1.ncdc.noaa.gov/pub/data/metadata/published/geoportal/iso/xml/C00630.xml
-- http://gcmdtest-env.ej2s7tvq62.us-east-1.elasticbeanstalk.com/gcmd_keywords?url=https://data.nodc.noaa.gov/nodc/archive/metadata/approved/iso/GHRSST-EUR-L4HRfnd-GLOB-ODYSSEA.xml
-- http://gcmdtest-env.ej2s7tvq62.us-east-1.elasticbeanstalk.com/gcmd_keywords?url=https://data.noaa.gov/waf/NOAA/NESDIS/NGDC/STP/SEM/iso/xml/poes_sem_g00188.xml
-
 # Installation
 
 ## Requirements
